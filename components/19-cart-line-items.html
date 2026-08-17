@@ -1,0 +1,27 @@
+<!-- CART LINE ITEMS · DYNAMIC. Abandoned-cart flows only.
+     Design the shape of ONE row properly - the loop repeats whatever that row is.
+     Klaviyo populates this from the Checkout Started event.
+     In a static design comp, delete the {% for %} / {% endfor %} lines and
+     hard-code two example rows. -->
+<tr>
+  <td align="center" class="da-gut" style="padding:30px 48px 0 48px;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+      {% for item in event.extra.line_items %}
+      <tr>
+        <td width="96" valign="top" style="padding:0 18px 20px 0;">
+          <img src="{{ item.product.featured_image.full }}" width="96" alt="{{ item.product.title }}" style="display:block; width:96px; height:auto; border:0; border-radius:12px; background-color:#F1F0E7;"/>
+        </td>
+        <td valign="top" style="padding:0 0 20px 0;">
+          <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:17px; line-height:24px; font-weight:700; color:#08230F;">
+            <a href="{{ item.product.url }}" target="_blank" style="color:#08230F; text-decoration:none;">{{ item.product.title }}</a>
+          </div>
+          <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; color:#5A6B5E; padding-top:4px;">Qty {{ item.quantity }}</div>
+          <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; font-weight:700; color:#08230F; padding-top:2px;">S${{ item.line_price }}</div>
+        </td>
+      </tr>
+      {% endfor %}
+
+    </table>
+  </td>
+</tr>
