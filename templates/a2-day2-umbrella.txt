@@ -1,0 +1,73 @@
+Subject: What does DrinkAid have to do with an umbrella?
+Preheader: The one thing that decides whether this works.
+
+---
+
+OPEN IT BEFORE THE RAIN.
+
+Hi {{ first_name|default:'there' }},
+
+Quick one, because this is the part people get wrong.
+
+We recommend taking DrinkAid BEFORE you drink. Not during. Not after.
+
+Taking it afterwards is a bit like opening an umbrella once you are
+already soaked. It will stop things getting worse, but the wet is
+already wet.
+
+Take it before and it is working from the first drop of alcohol.
+
+
+FIRST, THE DOSE
+
+One sachet = 2 capsules = one dose.
+
+Take both. One capsule is half the formula, and half a dose of
+something that works is a dose of something that does not.
+
+Each box holds 6 sachets, so a box is 6 nights out.
+
+
+WHEN TO TAKE IT
+
+15 to 30 minutes before your first drink
+  One sachet, both capsules
+
+Heavy session, after your last drink
+  A second sachet
+
+You forgot, and it's already 11 pm
+  Take one sachet now. Earlier is better, but late beats never
+
+
+FOUR MORE THINGS THAT HELP, NONE OF WHICH COST ANYTHING.
+
++ Line your stomach. Eat properly beforehand. Eggs, avocado, tomato
+  and broccoli all carry compounds your body uses to process alcohol.
+
++ Hydrate, and not only during. Water across the whole day does more
+  than water at the bar.
+
++ Do not mix your drinks. Your liver has enough on.
+
++ Protect your sleep. Alcohol wrecks the back half of the night,
+  which is a good part of why tomorrow feels flat even when you got
+  eight hours.
+
+That is the whole routine. Nothing to mix, nothing to measure,
+nothing to remember in the morning.
+
+And if you are in Singapore and get caught out with an empty drawer,
+PandaMart carries us. Roughly an hour, which is usually faster than
+the night moves.
+
+Got questions? Check our FAQs at drinkaid.co, or just reply to this
+email - a human reads it.
+
+---
+www.drinkaid.co  ·  @drinkaid.co
+2,000,000+ mornings saved from hangovers  ·  Product of Singapore
+Modular Wellness Pte. Ltd.
+3 Lorong Bakar Batu, #03-03, Singapore 348741
+
+No longer want to receive these emails? {% unsubscribe 'Unsubscribe' %}
