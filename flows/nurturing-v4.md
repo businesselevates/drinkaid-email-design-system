@@ -28,7 +28,18 @@ and 32 built messages — the Day 0 flow serves A1/B1/C1 from one email.
 
 **Klaviyo copies the template on attach.** Each flow message owns a private copy
 of the library template, with its own id; editing the library template does not
-propagate. To change a shipped email, edit it inside the flow — or re-attach.
+propagate. That copy is **not reachable through the Templates API** — `PATCH`
+returns 404 — so the way to push a repo change into a live flow is:
+
+1. `update_email_template` on the library template.
+2. `update_flow_action` on the message, setting `message.template_id` back to the
+   library id. This re-clones, producing a *new* copy id.
+   The action's existing `links` must be sent unchanged or the call is rejected
+   with "You cannot change the links of an action."
+3. Read the new copy back and confirm the change landed.
+
+T09 was corrected this way: library `XUYvJd`, flow copy now `Sjb5K5`
+(was `R7kZ6s`, destroyed by the re-clone).
 The three unverified C11 product images live in flow message `Yed2U4`
 (Track C, D112), not only in library template `SvGkXd`.
 
@@ -92,14 +103,30 @@ is evaluated.
    (The doc's B11 contradiction — body `XXXXX`, P.S. `BACKAGAIN10` — is moot now
    that the code is generated, but the P.S. still names `BACKAGAIN10` in the copy
    doc and should be corrected at source.)
-5b. **The A6 price table does not match list price.** *Decided: keep the copy
-   doc's numbers.* T09 prints "3 boxes = 18 sachets = S$37.02", but three boxes
-   at list is 3 x S$14.90 = S$44.70. Every automatic discount in Shopify is
-   expired, so the tier comes from the `_aov_bundles` bundle app
-   ("Get-More-Save-More") and is not readable through the Admin API. The risk is
-   accepted rather than resolved: if that bundle tier is ever switched off, this
-   email quotes a price the checkout will not honour. Worth a spot-check at
-   seed-test time by actually adding three boxes to a cart.
+5b. ~~**The A6 price table does not match list price.**~~ **Closed, and my earlier
+    reading of it was wrong.** S$37.02 was not invented: it is 3 boxes after the
+    8% volume discount *and* the 10% coupon (44.70 x 0.92 x 0.90 = 37.01). The
+    real defect was that T09 showed a with-coupon price while carrying no coupon
+    code, so a customer clicking through would have found S$41.12. T09 now quotes
+    **S$41.12 / S$2.28 per session**, the true no-coupon price.
+    T15, T16 (S$113.62 for 2 Sharing Packs) and T22 (S$53.82 after 10%) were all
+    checked against the ladder below and are exact.
+
+    Volume ladder, derived from ~50 real orders on SKU `DACAD01`:
+
+    | Boxes | Discount |
+    |---|---|
+    | 1 | 0% |
+    | 2 | 5% |
+    | 3 | 8% |
+    | 6 | 12% |
+    | 9+ | 15% |
+
+    The `qty 6 -> 12%` step is confirmed across 14 orders; the others across 3-8
+    each. The tier config lives inside the volume-discount app and is not
+    readable through the Admin API, so this is inferred from outcomes, not read
+    from source.
+
 6. ~~**Broken product URL in the copy.**~~ **Fixed.** The copy doc misspells the
    handle as `complete-alchohol-defence` (4 occurrences); `components/09-cta-primary.html`
    carried the same typo. Shopify confirms the real handle is
@@ -124,7 +151,14 @@ is evaluated.
 11. **Decide what to do with the superseded flows** `YmGiAb` / `Vt56r5` /
     `XVHwMq`. They cannot be renamed via the API, only deleted or
     status-changed. See *Superseded flows*.
-12. **Three C11 product images are unverified.** The Snuu, Easy Mode and
+12. **Prices are quoted in SGD but the store sells into 14 markets.**
+    Shopify has 14 enabled markets and 15 price lists across 14 currencies, so a
+    recipient in Malaysia or the Philippines sees a different number at checkout
+    than the S$ figure in the email. Same-variant SGD line prices observed across
+    recent orders ranged S$10.92-15.39. The quoted prices are correct for
+    Singapore only. Either label them as such, restrict the price-bearing emails
+    to the SG market, or drop absolute figures.
+13. **Three C11 product images are unverified.** The Snuu, Easy Mode and
     Gummies shots in T20 were picked from the Klaviyo image library by name and
     have not been confirmed as the current packshots. Replace inside flow
     message `Yed2U4` as well as library template `SvGkXd`.
@@ -187,6 +221,24 @@ page rather than breaking if the property is ever absent.
 
 T01 was byte-identical across all three tracks, so this also stops the Day 0
 email being maintained in triplicate.
+
+## The coupon stacks with the volume discount
+
+Verified, not assumed. `Get-More-Save-More` and `Buy-More-Save-More` are both
+`DiscountCodeApp` codes from the `volume-discount` app, both ACTIVE, and both
+carry `combinesWith: {orderDiscounts: true, productDiscounts: true,
+shippingDiscounts: true}`. Real orders already show a 10% code applied alongside
+the 12% volume discount (#125775, #125773, #125757, #125723), so stacking is
+live behaviour, not a theory.
+
+The bundle is a **product-level** discount. For the Klaviyo coupon to combine
+with it, create it as **"applies to entire order"** and enable its
+**Combinations -> Product discounts**. All 30 legacy codes in the store from 2022
+have every `combinesWith` flag false, so this is the first use of combinations
+here.
+
+Accepted trade-off: at 3 boxes the customer would pay 44.70 -> 41.12 (volume)
+-> 37.01 (coupon), about 17% off list. Signed off.
 
 ## Setup still required in Klaviyo
 

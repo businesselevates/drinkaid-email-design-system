@@ -253,8 +253,8 @@ EMAILS["T09-A6-primary-offer"] = lambda: A.offer_compare(
     "<br/><br/>Dinner with friends. A few drinks after work. Friday night out. You take a sachet, "
     "wake up feeling good, and it becomes part of the routine.<br/><br/>So if you're ready to "
     "restock, here are the two recommended options for you:",
-    left={"kicker": "OPTION ONE", "name": "3 Boxes", "price": "S$37.02",
-          "detail": ["18 sachets", "S$2.06 per session", "Roughly 2&ndash;3 months of supply"],
+    left={"kicker": "OPTION ONE", "name": "3 Boxes", "price": "S$41.12",
+          "detail": ["18 sachets", "S$2.28 per session", "Roughly 2&ndash;3 months of supply"],
           "cta": "CHOOSE THIS", "href": PRODUCT},
     right={"kicker": "OPTION TWO", "name": "Sharing Pack", "price": "S$59.80",
            "detail": ["30 sachets", "S$1.99 per session", "FREE SHIPPING"],
