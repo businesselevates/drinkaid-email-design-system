@@ -1,9 +1,16 @@
 {
   "source_doc": "13KGYmRN0u21OpRSFJ4i89qDAZIAHzFx-t_aiX0wTvYQ",
   "klaviyo_flows": {
-    "A": "YmGiAb",
-    "B": "Vt56r5",
-    "C": "XVHwMq"
+    "_note": "Rebuilt 2026-08-24: Day 0 split into its own Placed Order flow, the three track flows now start at Day 2. The old A/B/C ids below are superseded and carry no templates.",
+    "day0": "Rg2fJS",
+    "A": "W2S7G4",
+    "B": "XMSf6n",
+    "C": "Yu6MWe",
+    "superseded": {
+      "A": "YmGiAb",
+      "B": "Vt56r5",
+      "C": "XVHwMq"
+    }
   },
   "unique_templates": 22,
   "shared_templates": {

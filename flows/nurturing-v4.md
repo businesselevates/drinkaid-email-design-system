@@ -9,19 +9,36 @@ Supersedes the V3 drafts. **V3 was left untouched** — see *What was not change
 | Sender | DrinkAid Team · `hello@drinkaid.co` |
 | Email manifest | `nurturing-v4-emails.json` |
 
-## The three flows
+## The four flows
 
-| Track | Segment | Klaviyo flow | Emails | Window | First nudge | Primary offer |
-|---|---|---|---|---|---|---|
-| A | 1–2 boxes | `YmGiAb` | 10 | 60 days | D20 | D27 |
-| B | 3–4 boxes | `Vt56r5` | 11 | 115 days | D70 | D95 |
-| C | 5+ boxes | `XVHwMq` | 13 | 135 days | D122 | D130 |
+Day 0 is its own flow (see *The Day 0 CTA problem*), so the three track flows
+open with a two-day delay and carry Day 2 onwards.
 
-All three are **draft**, every message carries subject line and preview text, and
-**no template is attached yet** — hence `TEMPLATES PENDING` in the flow names.
+| Flow | Klaviyo id | Trigger | Emails | Window |
+|---|---|---|---|---|
+| Day 0 welcome | `Rg2fJS` | `Placed Order` containing the pills | 1 | D0 |
+| Track A · 1–2 boxes | `W2S7G4` | `Ordered Product` | 9 | D2–D60 |
+| Track B · 3–4 boxes | `XMSf6n` | `Ordered Product` | 10 | D2–D115 |
+| Track C · 5+ / Sharing Pack | `Yu6MWe` | `Ordered Product` | 12 | D2–D130 |
 
-34 message slots resolve to **22 unique templates**: the top-of-funnel emails are
-byte-identical across tracks. `nurturing-v4-emails.json` carries the mapping.
+All four are **draft**, and every message now carries subject line, preview text
+and an attached template. 34 message slots resolve to **22 unique templates**
+and 32 built messages — the Day 0 flow serves A1/B1/C1 from one email.
+`nurturing-v4-emails.json` carries the mapping.
+
+**Klaviyo copies the template on attach.** Each flow message owns a private copy
+of the library template, with its own id; editing the library template does not
+propagate. To change a shipped email, edit it inside the flow — or re-attach.
+The three unverified C11 product images live in flow message `Yed2U4`
+(Track C, D112), not only in library template `SvGkXd`.
+
+### Superseded flows
+
+`YmGiAb` / `Vt56r5` / `XVHwMq` are the first V4 build: right copy, right
+triggers, but Day 0 inline and no templates attached. They are drafts and carry
+nothing the new flows do not. **They cannot be renamed through the API** — only
+status-changed or deleted — so they are left as-is pending a decision. Deleting
+them is safe; leaving them risks someone activating the wrong draft.
 
 ## How the tracks are split
 
@@ -40,8 +57,17 @@ The flows therefore trigger on **`Ordered Product`** (`Y669Xq`), which does carr
 
 One Sharing Pack is 30 sachets ≈ 5 boxes, which is why it lands in C.
 
-Shared by all three: profile filter `Placed Order` = 0 before flow start
-(first-time buyers only), and re-entry disabled.
+Shared by all four: profile filter **`Placed Order` at most 1 over all time**,
+and re-entry disabled.
+
+That filter changed in this rebuild. The first build used `Placed Order` = 0
+*since starting this flow*, which suppresses people who buy again mid-flow but
+does **not** restrict entry to first-time buyers — so it did not do what this
+document claimed. `<= 1 over all time` does both: it admits only first-time
+buyers, and it drops anyone who reorders part-way through, which is what a
+restock-nudge sequence wants. It is `<=` rather than `= 1` so that the Day 0
+email still sends if the order event has not finished indexing when the filter
+is evaluated.
 
 ## Open items before these can go live
 
@@ -95,6 +121,13 @@ Shared by all three: profile filter `Placed Order` = 0 before flow start
    disagrees with the A1–A10 headings.
 10. **C10 → C11 is a 2-day gap** (D110 → D112) against 16–22 day gaps either
     side. Faithful to the doc; worth a second look.
+11. **Decide what to do with the superseded flows** `YmGiAb` / `Vt56r5` /
+    `XVHwMq`. They cannot be renamed via the API, only deleted or
+    status-changed. See *Superseded flows*.
+12. **Three C11 product images are unverified.** The Snuu, Easy Mode and
+    Gummies shots in T20 were picked from the Klaviyo image library by name and
+    have not been confirmed as the current packshots. Replace inside flow
+    message `Yed2U4` as well as library template `SvGkXd`.
 
 ## What was not changed
 
@@ -135,32 +168,25 @@ The comp's component library maps 1:1 onto `components/`: `LogoPill` → 02,
 and that is the one being shipped — the tag is a legal requirement. The built
 emails therefore carry one line the client did not see in the comp.
 
-## The Day 0 CTA problem
+## The Day 0 CTA problem — resolved
 
-T01's button is meant to open the Shopify order-confirmation page. That URL lives
-at `$extra.order_status_url` on **Placed Order**. These flows trigger on
-**Ordered Product**, whose payload does not carry it — confirmed against a live
-event.
+T01's button opens the Shopify order-confirmation page. That URL lives at
+`$extra.order_status_url`, which **only `Placed Order` carries** — confirmed
+against a live event. The track flows trigger on `Ordered Product`, whose
+payload does not have it.
 
-The button currently renders:
+Day 0 is therefore its own flow (`Rg2fJS`), triggered on `Placed Order` filtered
+to orders whose `Items` contain the pills. The button renders:
 
 ```
 {{ event|lookup:'$extra'|lookup:'order_status_url'|default:'https://drinkaid.co/account' }}
 ```
 
-so it degrades to the account page instead of breaking. It will only resolve to
-a real order page if the Day 0 email is triggered by Placed Order.
+which now resolves to the real order page, and still degrades to the account
+page rather than breaking if the property is ever absent.
 
-Two ways out, and this needs a decision:
-
-- **Leave it.** The button goes to the account page. Zero work, slightly weaker
-  than the copy promises.
-- **Split Day 0 into its own flow.** T01 is byte-identical across all three
-  tracks, so it does not need the track split at all. Move it to a single
-  Placed Order flow for first-time buyers, and start the three track flows at
-  Day 2 with a two-day opening delay. The link then works, and the Day 0 email
-  stops being maintained in triplicate. This is the better shape; it is also a
-  change to three flows that are already built.
+T01 was byte-identical across all three tracks, so this also stops the Day 0
+email being maintained in triplicate.
 
 ## Setup still required in Klaviyo
 
