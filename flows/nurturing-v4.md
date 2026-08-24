@@ -45,10 +45,10 @@ Shared by all three: profile filter `Placed Order` = 0 before flow start
 
 ## Open items before these can go live
 
-1. **Confirm the full variant list.** Only two variants were observable from
-   event data — `Original (6 Sachets)` and `Sharing Pack (30 Sachets)`. Any
-   third pack size currently matches no track and the buyer receives nothing.
-   Needs a look at the live Shopify product.
+1. ~~**Confirm the full variant list.**~~ **Closed.** Shopify shows the product
+   has exactly two variants — `Original (6 Sachets)` / `DACAD01` / S$14.90 and
+   `Sharing Pack (30 Sachets)` / `DASP1` / S$59.80. The track filters cover the
+   whole catalogue; no flow change needed.
 2. **Decide what happens to subscription orders.** Orders placed through
    `subscription_contract_checkout_one` carry a selling plan and replenish
    automatically; a "you're running low, restock" sequence is wrong for them.
@@ -62,14 +62,28 @@ Shared by all three: profile filter `Placed Order` = 0 before flow start
    `XXXXX`. B11 also contradicts itself — body says `XXXXX`, the P.S. says
    `BACKAGAIN10`. Klaviyo dynamic coupons would satisfy the 7-day expiry the
    copy promises.
-6. **Broken product URL in the copy.** `drinkaid.co/products/complete-alchohol-defence`
-   appears 4 times — the handle is misspelled.
+5b. **The A6 price table does not match list price.** The copy prints
+   "3 boxes = 18 sachets = S$37.02", but three boxes at list is
+   3 x S$14.90 = S$44.70. Every automatic discount in Shopify is expired, so the
+   tier comes from the `_aov_bundles` bundle app ("Get-More-Save-More") and is
+   not readable through the Admin API. Someone has to confirm the live tier
+   before that email ships — otherwise it quotes a price the checkout will not
+   honour.
+6. ~~**Broken product URL in the copy.**~~ **Fixed.** The copy doc misspells the
+   handle as `complete-alchohol-defence` (4 occurrences); `components/09-cta-primary.html`
+   carried the same typo. Shopify confirms the real handle is
+   `complete-alcohol-defence`. The component is corrected; the copy doc still
+   needs the same fix at source.
 7. **Review mechanic undecided.** A7/B6/C7 ask to collect the review inside the
    email rather than sending people to Shopify. Whether that is possible depends
    on the review app in use.
-8. **Missing assets.** A3 calls for a "four pathways" infographic that does not
-   exist, and the four trust-row icons in `components/12-icon-trust-row.html`
-   are still placeholders.
+8. **Hero photography.** The approved comp ships a placeholder lifestyle shot
+   whose own alt text reads "real product/lifestyle photography to come". Needed
+   from the client before any archetype carrying a hero ships.
+   Two former asset gaps are now closed: no approved archetype uses a trust-icon
+   row, so the four missing icons in `components/12-icon-trust-row.html` are not
+   blocking; and A3's "four pathways" needs no infographic because archetype 3
+   renders it as live numbered text, which also survives images-off.
 9. **Day-number conflicts in the source doc.** The Track C summary table says
    D100 and D135; the per-email headings say D110 and D130. The headings were
    treated as canonical. The Track A "Updated Ideas 12/8" table likewise
@@ -83,3 +97,35 @@ The V3 drafts `Rwcjte` / `S692Vg` / `TpnCpK` and every `[Pills]` template from
 12–13 August are untouched. Note that those templates — including everything
 suffixed `— DESIGNED` and the master `Y4USkr` — are the dark, off-brand set that
 `HANDOFF.md` warns about. None of them should be attached to a V4 flow.
+
+## Design → template mapping
+
+The client-approved comp (`DrinkAid Post-Purchase Nurture - Layout Comp.dc.html`)
+is a layout approval: all copy in it is lorem ipsum, and what was signed off is
+the system — colour, type, spacing and block vocabulary. It defines **8 layout
+archetypes** covering all 34 sends.
+
+| Archetype | Templates it carries |
+|---|---|
+| 1 · Welcome / thank-you | T01 |
+| 2 · Education + table | T02 |
+| 3 · Long-form explainer | T03, T04, T14 |
+| 4 · Founder letter | T05, T18, T19 |
+| 5 · Nudge + single CTA | T08, T10, T11, T12, T13, T16, T21 |
+| 6 · Offer + price comparison | T09, T15, T22 |
+| 7 · Review request | T06 |
+| 8 · Range / cross-sell | T20 |
+
+T17 (C5, the Day 28 qualifier) has no exact archetype — it asks one question with
+two possible situations. Archetype 6's two-card layout is being reused for it
+with the CTAs relabelled as the two answers, rather than commissioning a ninth.
+
+The comp's component library maps 1:1 onto `components/`: `LogoPill` → 02,
+`HeaderBar` → 03, `EyebrowHeadline` → 07, `MintPanel` → 14, `CtaPrimary` → 09,
+`CtaOutline` → 11, `ReviewCard` → 17, `CategoryCard` → 16, `SupportLine` → 22,
+`Footer` → 23. Four blocks in the comp had no repo equivalent and were added:
+`24-spec-table`, `25-numbered-explainer`, `26-letter-body`, `27-offer-compare-2up`.
+
+**The comp's footer has no unsubscribe link.** `components/23-footer.html` does,
+and that is the one being shipped — the tag is a legal requirement. The built
+emails therefore carry one line the client did not see in the comp.
