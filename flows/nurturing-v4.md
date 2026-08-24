@@ -92,9 +92,13 @@ is evaluated.
    They are not excluded yet.
 3. **Mixed carts trigger twice.** An order containing both variants fires two
    `Ordered Product` events and can enter two tracks. Needs a precedence rule.
-4. **Turn off the live V3 flow at cutover.** `TLYSwU`
-   ("[DrinkAid] Nurturing Email (new EDM)") is live on `Placed Order` with no
+4. **Turn off the V3 flow at cutover.** `TLYSwU`
+   ("[DrinkAid] Nurturing Email (new EDM)") triggers on `Placed Order` with no
    product filter, for first-time buyers. Left running, it double-sends.
+   **As of 2026-08-24 16:xx UTC it reads `draft`, not live** (last updated
+   07:37 that morning) — so it may already have been switched off. Nobody on
+   this side changed it. Worth confirming with whoever did before treating this
+   as closed, in case the status change was accidental.
 5. ~~**Coupon codes are placeholders.**~~ **Decided: Klaviyo dynamic coupon.**
    T12, T16 and T22 now render `{% coupon_code 'PILLS_NURTURE_10OFF' %}`, which
    gives each profile its own code. **The coupon does not exist yet** and has to
