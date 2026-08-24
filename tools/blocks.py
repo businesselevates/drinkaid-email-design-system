@@ -16,7 +16,15 @@ MUTED, HAIRLINE, WHITE = "#5A6B5E", "#DCDCD2", "#FFFFFF"
 CDN = "https://d3k81ch9hvuctc.cloudfront.net/company/VagrHA/images/"
 LOGO = CDN + "8dbd6bfe-5f24-4f5d-910f-efb8c527f5b6.png"
 STARS = CDN + "8b43610a-398f-4c58-8d64-b1a33b9e42da.png"
-SPARK = CDN + "bd2d69c6-a2ef-46de-a481-053989348db8.png"
+# Flat forest social set, lifted from the approved comp and uploaded to Klaviyo.
+# The comp explicitly hides the design system's own 2-icon row and puts this
+# 4-icon row in its place — see flows/nurturing-v4.md.
+SOCIAL = [
+    ("Facebook",  "https://www.facebook.com/drinkaid.co",     CDN + "7dea48e8-1577-4103-a621-b7fa7e535420.png"),
+    ("Instagram", "https://www.instagram.com/drinkaid.co",    CDN + "e80dc936-31d2-4369-8939-f7694a6cde1b.png"),
+    ("TikTok",    "https://www.tiktok.com/@drinkaid.co",      CDN + "20781481-a9f2-400c-9ed7-85164df7fcdf.png"),
+    ("LinkedIn",  "https://www.linkedin.com/company/drinkaid", CDN + "f957394c-40d4-4148-a2b3-b8ed1cb999a8.png"),
+]
 PRODUCT = "https://drinkaid.co/products/complete-alcohol-defence"
 SHARING_PACK = PRODUCT + "?variant=51911310508164"
 
@@ -110,12 +118,22 @@ def mint_panel(eyebrow, heading, text):
 
 
 def bullet_list(items):
+    """Marker is the comp's 8px lime dot, not an icon image.
+
+    border-radius is ignored by Outlook's Word engine, so the dot degrades to an
+    8px lime square there. That is deliberate: a bgcolor cell stays visible with
+    images turned off, which an image marker would not.
+    """
     rows = []
     for i, text in enumerate(items):
         pad = "0" if i == len(items) - 1 else "14px"
         rows.append(f"""      <tr>
-        <td width="30" valign="top" style="padding:0 12px {pad} 0;"><img src="{SPARK}" width="18" alt="" style="display:block; width:18px; height:auto; border:0;"/></td>
-        <td valign="top" style="padding:0 0 {pad} 0; font-family:{FONT}; font-size:19px; line-height:28px; font-weight:600; color:{FOREST};">{text}</td>
+        <td width="30" valign="top" style="padding:5px 12px {pad} 0;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="8">
+            <tr><td height="8" bgcolor="{LIME}" style="background-color:{LIME}; width:8px; height:8px; border-radius:999px; font-size:0; line-height:0;">&nbsp;</td></tr>
+          </table>
+        </td>
+        <td valign="top" style="padding:0 0 {pad} 0; font-family:{FONT}; font-size:17px; line-height:26px; color:{FOREST};">{text}</td>
       </tr>""")
     return f"""<tr>
   <td align="left" class="da-gut" style="padding:30px 48px 0 48px;">
@@ -285,16 +303,23 @@ def support_line():
 
 def footer():
     """LOCKED. Carries {% unsubscribe %}, which the approved comp omits and which
-    is a legal requirement, so it ships whether or not the comp shows it."""
+    is a legal requirement, so it ships whether or not the comp shows it.
+
+    The social row is the comp's 4-icon flat forest set at 22px. The design
+    system's own 2-icon row is NOT shipped — the comp hides it.
+    """
+    icons = "\n".join(
+        f"""      <td style="padding:0 9px;"><a href="{href}" target="_blank"><img src="{src}" width="22" alt="{label}" style="display:block; width:22px; height:22px; border:0;"/></a></td>"""
+        for label, href, src in SOCIAL
+    )
     return f"""<tr><td style="padding:0 0 40px 0; font-size:0; line-height:0;">&nbsp;</td></tr>
 
 <tr>
   <td align="center" style="padding:0 30px 0 30px;">
     <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr>
-      <td style="padding:0 10px; font-family:{FONT}; font-size:14px; line-height:20px; font-weight:700; color:{FOREST};"><a href="https://drinkaid.co" target="_blank" style="color:{FOREST}; text-decoration:none;">www.drinkaid.co</a></td>
-      <td style="padding:0 6px;"><a href="https://www.instagram.com/drinkaid.co" target="_blank"><img src="{CDN}66928843-1f6f-4634-9d55-c1de33b1f691.png" width="24" alt="Instagram" style="display:block; width:24px; height:auto; border:0;"/></a></td>
-      <td style="padding:0 6px;"><a href="https://www.tiktok.com/@drinkaid.co" target="_blank"><img src="{CDN}eb6b8462-2978-41cb-a8f4-c1abb7313e91.png" width="24" alt="TikTok" style="display:block; width:24px; height:auto; border:0;"/></a></td>
-      <td style="padding:0 10px; font-family:{FONT}; font-size:14px; line-height:20px; font-weight:700; color:{FOREST};"><a href="https://www.instagram.com/drinkaid.co" target="_blank" style="color:{FOREST}; text-decoration:none;">@drinkaid.co</a></td>
+      <td style="padding:0 9px; font-family:{FONT}; font-size:14px; line-height:20px; font-weight:700; color:{FOREST};"><a href="https://drinkaid.co" target="_blank" style="color:{FOREST}; text-decoration:none;">www.drinkaid.co</a></td>
+{icons}
+      <td style="padding:0 9px; font-family:{FONT}; font-size:14px; line-height:20px; font-weight:700; color:{FOREST};"><a href="https://www.instagram.com/drinkaid.co" target="_blank" style="color:{FOREST}; text-decoration:none;">@drinkaid.co</a></td>
     </tr></table>
   </td>
 </tr>
