@@ -1,0 +1,431 @@
+{
+  "source_doc": "13KGYmRN0u21OpRSFJ4i89qDAZIAHzFx-t_aiX0wTvYQ",
+  "klaviyo_flows": {
+    "A": "YmGiAb",
+    "B": "Vt56r5",
+    "C": "XVHwMq"
+  },
+  "unique_templates": 22,
+  "shared_templates": {
+    "T01-welcome": [
+      "A1",
+      "B1",
+      "C1"
+    ],
+    "T02-umbrella": [
+      "A2",
+      "B2",
+      "C2"
+    ],
+    "T03-four-pathways": [
+      "A3",
+      "B3",
+      "C3"
+    ],
+    "T04-clinically-tested": [
+      "B4",
+      "C4"
+    ],
+    "T05-isaac-reply": [
+      "A4",
+      "B5",
+      "C6"
+    ],
+    "T06-review": [
+      "A7",
+      "B6",
+      "C7"
+    ],
+    "T07-nights-we-built-for": [
+      "B7",
+      "C8"
+    ],
+    "T08-A5-first-nudge": [
+      "A5"
+    ],
+    "T09-A6-primary-offer": [
+      "A6"
+    ],
+    "T10-A8-showing-up": [
+      "A8"
+    ],
+    "T11-A9-remember": [
+      "A9"
+    ],
+    "T12-A10-exit": [
+      "A10"
+    ],
+    "T13-B8-first-nudge": [
+      "B8"
+    ],
+    "T14-B9-faq": [
+      "B9"
+    ],
+    "T15-B10-primary-offer": [
+      "B10"
+    ],
+    "T16-B11-exit": [
+      "B11"
+    ],
+    "T17-C5-qualifier": [
+      "C5"
+    ],
+    "T18-C9-what-next": [
+      "C9"
+    ],
+    "T19-C10-advocacy": [
+      "C10"
+    ],
+    "T20-C11-range": [
+      "C11"
+    ],
+    "T21-C12-first-nudge": [
+      "C12"
+    ],
+    "T22-C13-primary-offer": [
+      "C13"
+    ]
+  },
+  "emails": [
+    {
+      "track": "A",
+      "n": 1,
+      "day": 0,
+      "note": "",
+      "subject": "Better mornings start here",
+      "preview": "A proper thank you, from a small team in Singapore.",
+      "slot": "A1",
+      "template": "T01-welcome"
+    },
+    {
+      "track": "A",
+      "n": 2,
+      "day": 2,
+      "note": "",
+      "subject": "What does DrinkAid have to do with an umbrella?",
+      "preview": "Before your first drink. Here’s exactly how to take DrinkAid.",
+      "slot": "A2",
+      "template": "T02-umbrella"
+    },
+    {
+      "track": "A",
+      "n": 3,
+      "day": 7,
+      "note": "",
+      "subject": "Curious why DrinkAid works when the last product you’ve tried didn't?",
+      "preview": "Most products focus on one part of drinking. DrinkAid takes a broader approach.",
+      "slot": "A3",
+      "template": "T03-four-pathways"
+    },
+    {
+      "track": "A",
+      "n": 4,
+      "day": 14,
+      "note": "",
+      "subject": "A quick note from Isaac",
+      "preview": "Plain text, no marketing. I read every reply.",
+      "slot": "A4",
+      "template": "T05-isaac-reply"
+    },
+    {
+      "track": "A",
+      "n": 5,
+      "day": 20,
+      "note": "first nudge",
+      "subject": "What has DrinkAid actually changed?",
+      "preview": "Three weeks in. How has your experience been?",
+      "slot": "A5",
+      "template": "T08-A5-first-nudge"
+    },
+    {
+      "track": "A",
+      "n": 6,
+      "day": 27,
+      "note": "PRIMARY OFFER",
+      "subject": "Running low on DrinkAid?",
+      "preview": "If it worked for you, there’s a better way to stock up.",
+      "slot": "A6",
+      "template": "T09-A6-primary-offer"
+    },
+    {
+      "track": "A",
+      "n": 7,
+      "day": 34,
+      "note": "",
+      "subject": "Are you still getting hungover?",
+      "preview": "Genuinely asking. Plus a small favour.",
+      "slot": "A7",
+      "template": "T06-review"
+    },
+    {
+      "track": "A",
+      "n": 8,
+      "day": 42,
+      "note": "",
+      "subject": "Who are you showing up for today?",
+      "preview": "The reason any of this exists.",
+      "slot": "A8",
+      "template": "T10-A8-showing-up"
+    },
+    {
+      "track": "A",
+      "n": 9,
+      "day": 51,
+      "note": "",
+      "subject": "Remember when you first got hungover?",
+      "preview": "The part you don't feel is worth thinking about too.",
+      "slot": "A9",
+      "template": "T11-A9-remember"
+    },
+    {
+      "track": "A",
+      "n": 10,
+      "day": 60,
+      "note": "exit",
+      "subject": "Last one from us for a while",
+      "preview": "Adults can make their own decisions",
+      "slot": "A10",
+      "template": "T12-A10-exit"
+    },
+    {
+      "track": "B",
+      "n": 1,
+      "day": 0,
+      "note": "",
+      "subject": "Better mornings start here",
+      "preview": "A proper thank you, from a small team in Singapore.",
+      "slot": "B1",
+      "template": "T01-welcome"
+    },
+    {
+      "track": "B",
+      "n": 2,
+      "day": 2,
+      "note": "",
+      "subject": "What does DrinkAid have to do with an umbrella?",
+      "preview": "Before your first drink. Here’s exactly how to take DrinkAid.",
+      "slot": "B2",
+      "template": "T02-umbrella"
+    },
+    {
+      "track": "B",
+      "n": 3,
+      "day": 7,
+      "note": "",
+      "subject": "Curious why DrinkAid works when the last product you’ve tried didn't?",
+      "preview": "Most products focus on one part of drinking. DrinkAid takes a broader approach.",
+      "slot": "B3",
+      "template": "T03-four-pathways"
+    },
+    {
+      "track": "B",
+      "n": 4,
+      "day": 18,
+      "note": "",
+      "subject": "What \"clinically tested\" actually means",
+      "preview": "We tested the finished formula, not just the ingredients.",
+      "slot": "B4",
+      "template": "T04-clinically-tested"
+    },
+    {
+      "track": "B",
+      "n": 5,
+      "day": 30,
+      "note": "",
+      "subject": "A quick note from Isaac",
+      "preview": "Plain text, no marketing. I read every reply.",
+      "slot": "B5",
+      "template": "T05-isaac-reply"
+    },
+    {
+      "track": "B",
+      "n": 6,
+      "day": 44,
+      "note": "",
+      "subject": "Are you still getting hungover?",
+      "preview": "Genuinely asking. Plus a small favour.",
+      "slot": "B6",
+      "template": "T06-review"
+    },
+    {
+      "track": "B",
+      "n": 7,
+      "day": 56,
+      "note": "",
+      "subject": "The nights we built DrinkAid for",
+      "preview": "Nothing to sell today",
+      "slot": "B7",
+      "template": "T07-nights-we-built-for"
+    },
+    {
+      "track": "B",
+      "n": 8,
+      "day": 70,
+      "note": "first commercial",
+      "subject": "How's the drawer looking?",
+      "preview": "No pressure if not.",
+      "slot": "B8",
+      "template": "T13-B8-first-nudge"
+    },
+    {
+      "track": "B",
+      "n": 9,
+      "day": 85,
+      "note": "",
+      "subject": "Straight answers, including the awkward ones",
+      "preview": "Six questions, no marketing.",
+      "slot": "B9",
+      "template": "T14-B9-faq"
+    },
+    {
+      "track": "B",
+      "n": 10,
+      "day": 95,
+      "note": "PRIMARY OFFER",
+      "subject": "It was never only for the big nights",
+      "preview": "The maths nobody does before they buy",
+      "slot": "B10",
+      "template": "T15-B10-primary-offer"
+    },
+    {
+      "track": "B",
+      "n": 11,
+      "day": 115,
+      "note": "exit",
+      "subject": "Go big once instead of reordering four times",
+      "preview": "Last one from us for a while.",
+      "slot": "B11",
+      "template": "T16-B11-exit"
+    },
+    {
+      "track": "C",
+      "n": 1,
+      "day": 0,
+      "note": "",
+      "subject": "Better mornings start here",
+      "preview": "A proper thank you, from a small team in Singapore.",
+      "slot": "C1",
+      "template": "T01-welcome"
+    },
+    {
+      "track": "C",
+      "n": 2,
+      "day": 2,
+      "note": "",
+      "subject": "What does DrinkAid have to do with an umbrella?",
+      "preview": "Before your first drink. Here’s exactly how to take DrinkAid.",
+      "slot": "C2",
+      "template": "T02-umbrella"
+    },
+    {
+      "track": "C",
+      "n": 3,
+      "day": 7,
+      "note": "",
+      "subject": "Curious why DrinkAid works when the last product you’ve tried didn't?",
+      "preview": "Most products focus on one part of drinking. DrinkAid takes a broader approach.",
+      "slot": "C3",
+      "template": "T03-four-pathways"
+    },
+    {
+      "track": "C",
+      "n": 4,
+      "day": 18,
+      "note": "",
+      "subject": "What \"clinically tested\" actually means",
+      "preview": "We tested the finished formula, not just the ingredients.",
+      "slot": "C4",
+      "template": "T04-clinically-tested"
+    },
+    {
+      "track": "C",
+      "n": 5,
+      "day": 28,
+      "note": "the qualifier",
+      "subject": "Quick question, and it changes what we send you",
+      "preview": "Two very different situations, and we can't tell which is yours.",
+      "slot": "C5",
+      "template": "T17-C5-qualifier"
+    },
+    {
+      "track": "C",
+      "n": 6,
+      "day": 42,
+      "note": "",
+      "subject": "A quick note from Isaac",
+      "preview": "Plain text, no marketing. I read every reply.",
+      "slot": "C6",
+      "template": "T05-isaac-reply"
+    },
+    {
+      "track": "C",
+      "n": 7,
+      "day": 56,
+      "note": "",
+      "subject": "Are you still getting hungover?",
+      "preview": "Genuinely asking. Plus a small favour.",
+      "slot": "C7",
+      "template": "T06-review"
+    },
+    {
+      "track": "C",
+      "n": 8,
+      "day": 72,
+      "note": "",
+      "subject": "The nights we built DrinkAid for",
+      "preview": "Nothing to sell today",
+      "slot": "C8",
+      "template": "T07-nights-we-built-for"
+    },
+    {
+      "track": "C",
+      "n": 9,
+      "day": 88,
+      "note": "",
+      "subject": "What should we make next?",
+      "preview": "You've told us what you like. Now tell us what's missing",
+      "slot": "C9",
+      "template": "T18-C9-what-next"
+    },
+    {
+      "track": "C",
+      "n": 10,
+      "day": 110,
+      "note": "",
+      "subject": "How most people find DrinkAid",
+      "preview": "Usually, it's just one person telling another",
+      "slot": "C10",
+      "template": "T19-C10-advocacy"
+    },
+    {
+      "track": "C",
+      "n": 11,
+      "day": 112,
+      "note": "range",
+      "subject": "What the sachet doesn't do",
+      "preview": "Yes, this is a range email. It's also true.",
+      "slot": "C11",
+      "template": "T20-C11-range"
+    },
+    {
+      "track": "C",
+      "n": 12,
+      "day": 122,
+      "note": "first nudge",
+      "subject": "Five months in. How's the supply?",
+      "preview": "First time we've mentioned it, and we'll be quick.",
+      "slot": "C12",
+      "template": "T21-C12-first-nudge"
+    },
+    {
+      "track": "C",
+      "n": 13,
+      "day": 130,
+      "note": "PRIMARY OFFER",
+      "subject": "Same again?",
+      "preview": "No pitch. Just the easy version.",
+      "slot": "C13",
+      "template": "T22-C13-primary-offer"
+    }
+  ]
+}
