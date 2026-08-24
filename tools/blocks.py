@@ -205,9 +205,18 @@ def letter(paragraphs, signoff="Cheers,", name="Isaac", title="CEO, DrinkAid"):
 
 
 def offer_compare(left, right):
-    """left / right are dicts: kicker, name, price, detail, cta, href."""
-    def lines(detail):
-        return "<br/><br/>".join(detail)
+    """left / right are dicts: kicker, name, price, detail, cta, href.
+
+    The comp gives each detail line its own 7px-padded row, and weights the
+    right-hand (recommended) card's lines at 600.
+    """
+    def lines(detail, weight=None):
+        w = f" font-weight:{weight};" if weight else ""
+        return "".join(
+            f'<div style="padding:7px 0; font-family:{FONT}; font-size:14px; '
+            f'line-height:20px; color:{FOREST};{w}">{d}</div>'
+            for d in detail
+        )
     return f"""<tr>
   <td align="center" class="da-gut" style="padding:30px 40px 0 40px;">
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -232,7 +241,7 @@ def offer_compare(left, right):
             <tr><td align="center" style="padding:24px 20px 0 20px; font-family:{FONT}; font-size:12px; line-height:16px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:{FOREST};">{right['kicker']}</td></tr>
             <tr><td align="center" style="padding:6px 20px 0 20px; font-family:{FONT}; font-size:22px; line-height:28px; font-weight:800; color:{FOREST};">{right['name']}</td></tr>
             <tr><td align="center" style="padding:2px 20px 0 20px; font-family:{FONT}; font-size:15px; line-height:22px; color:{FOREST};">{right['price']}</td></tr>
-            <tr><td align="center" style="padding:16px 20px 0 20px; font-family:{FONT}; font-size:14px; line-height:20px; color:{FOREST};">{lines(right['detail'])}</td></tr>
+            <tr><td align="center" style="padding:16px 20px 0 20px; font-family:{FONT}; font-size:14px; line-height:20px; color:{FOREST};">{lines(right['detail'], 600)}</td></tr>
             <tr><td align="center" style="padding:14px 20px 24px 20px;">
               <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr>
                 <td align="center" bgcolor="{FOREST}" style="background-color:{FOREST}; border-radius:999px;">
