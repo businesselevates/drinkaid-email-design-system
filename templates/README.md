@@ -24,13 +24,16 @@ inbox — seed-test through Klaviyo into Gmail and Outlook before anything ships
 
 ## Known gaps in what is generated here
 
-- **Coupon codes read `XXXXX`** in T12, T16 and T22. Real codes, or Klaviyo
-  dynamic coupons, have to go in before those three send.
+- **The coupon does not exist yet.** T12, T16 and T22 render
+  `{% coupon_code 'PILLS_NURTURE_10OFF' %}`, which resolves to a per-profile code
+  only once a Shopify dynamic coupon of exactly that name is created in the
+  Klaviyo UI. Until then the tag renders empty.
 - **T09 prices come from the copy doc** and do not match Shopify list price.
   See open item 5b in `flows/nurturing-v4.md`.
 - **T20's three product images are a guess.** The approved comp shipped three
   CategoryCard images without labelling which is Snuu, Easy Mode or Gummies;
   they are assigned here in the order the comp used them and must be checked.
-- **T01's CTA points at the homepage.** The copy asks for the order confirmation
-  page, but these flows trigger on `Ordered Product`, whose payload carries no
-  `order_status_url`.
+- **T01's CTA falls back to the account page.** It looks up
+  `$extra.order_status_url`, which exists on `Placed Order` but not on
+  `Ordered Product` — the trigger these flows use. See "The Day 0 CTA problem" in
+  `flows/nurturing-v4.md`.

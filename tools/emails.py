@@ -18,8 +18,21 @@ SHARING = B.SHARING_PACK
 SCIENCE = "https://drinkaid.co/pages/science"
 FIND_US = "https://drinkaid.co/pages/find-us"
 HOME = "https://drinkaid.co"
+# Klaviyo mints one unique code per profile at send time from a Shopify dynamic
+# coupon of this name. The coupon itself is created in the Klaviyo UI
+# (Content > Coupons) — the API cannot set a discount value or an expiry — so
+# this tag renders empty until a coupon called exactly this exists.
+COUPON_10 = "{% coupon_code 'PILLS_NURTURE_10OFF' %}"
+
+# The Shopify order-status URL lives on Placed Order, not on Ordered Product,
+# which is what these flows trigger on. The lookup therefore resolves only if
+# this email is moved to a Placed Order trigger; the default keeps the button
+# pointing somewhere real either way. See flows/nurturing-v4.md.
+ORDER_CONFIRMATION = ("{{ event|lookup:'$extra'|lookup:'order_status_url'"
+                      "|default:'https://drinkaid.co/account' }}")
+
 JUDGEME = ("https://judge.me/product_reviews/b3577d33-2024-4571-ac24-28c5287508fe/"
-           "new?id=6673927897220&source=shareable-link")
+           "new?id=6673927897220&amp;source=shareable-link")
 
 # The comp shipped three CategoryCard images without saying which product each
 # one is. Assignment below follows the order they appear in the comp and MUST be
@@ -51,7 +64,7 @@ EMAILS["T01-welcome"] = lambda: A.welcome(
      "next one is the one that actually matters: when to take DrinkAid, and why the timing "
      "does more work than anything else we could tell you.",
      "Cheers,<br/>Isaac"],
-    "VIEW MY ORDER", HOME)
+    "VIEW MY ORDER", ORDER_CONFIRMATION)
 
 
 EMAILS["T02-umbrella"] = lambda: A.education_table(
@@ -306,7 +319,7 @@ EMAILS["T12-A10-exit"] = lambda: A.nudge(
      "So if you're going to drink, DrinkAid is an easy thing to keep in the drawer.",
      "And before we leave you alone for a while, <b>here's 10% off your next order.</b>"],
     "RESTOCK NOW", PRODUCT,
-    code=("XXXXX", "10% off your next order &mdash; expires in 7 days"),
+    code=(COUPON_10, "10% off your next order &mdash; expires in 7 days"),
     closing="With the Sharing Pack, each sachet already works out to under S$2 per drinking "
             "session. With 10% off, it's even less.<br/><br/>We'll leave you alone after this. "
             "See you whenever you need us.<br/><br/>P.S. The 10% code is just for this last "
@@ -405,7 +418,7 @@ EMAILS["T16-B11-exit"] = lambda: A.nudge(
      "double up: 2 Sharing Packs = 60 sachets for S$113.62.",
      "Before we leave you alone for a while, here's 10% off your next order."],
     "STOCK UP NOW", SHARING,
-    code=("XXXXX", "10% off your next order &mdash; expires in 7 days"),
+    code=(COUPON_10, "10% off your next order &mdash; expires in 7 days"),
     closing="If you only drink occasionally, stick with the smaller pack. We'd rather you buy "
             "what you'll actually use.<br/><br/>Otherwise, stock up now and forget about it for "
             "a while. That's it from us. We'll only be back when we have something worth sharing."
@@ -532,7 +545,7 @@ EMAILS["T22-C13-primary-offer"] = lambda: A.nudge(
     "REORDER WITH 10% OFF", SHARING,
     panel=("THE SIMPLE OPTION", "1 Sharing Pack. 30 sachets. S$59.80.",
            "That's S$1.99 per session and roughly four months of supply for most people."),
-    code=("XXXXX", "10% off &mdash; brings the Sharing Pack down to S$53.82"),
+    code=(COUPON_10, "10% off &mdash; brings the Sharing Pack down to S$53.82"),
     closing="If you'd rather repeat exactly what you ordered last time, that's fine too. Same "
             "formula either way.<br/><br/>And if you're still well stocked, ignore this one "
             "completely. We'd much rather you buy when you actually need it than because an email "

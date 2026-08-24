@@ -58,25 +58,30 @@ Shared by all three: profile filter `Placed Order` = 0 before flow start
 4. **Turn off the live V3 flow at cutover.** `TLYSwU`
    ("[DrinkAid] Nurturing Email (new EDM)") is live on `Placed Order` with no
    product filter, for first-time buyers. Left running, it double-sends.
-5. **Coupon codes are placeholders.** A10, B11 and C13 promise 10% off and print
-   `XXXXX`. B11 also contradicts itself — body says `XXXXX`, the P.S. says
-   `BACKAGAIN10`. Klaviyo dynamic coupons would satisfy the 7-day expiry the
-   copy promises.
-5b. **The A6 price table does not match list price.** The copy prints
-   "3 boxes = 18 sachets = S$37.02", but three boxes at list is
-   3 x S$14.90 = S$44.70. Every automatic discount in Shopify is expired, so the
-   tier comes from the `_aov_bundles` bundle app ("Get-More-Save-More") and is
-   not readable through the Admin API. Someone has to confirm the live tier
-   before that email ships — otherwise it quotes a price the checkout will not
-   honour.
+5. ~~**Coupon codes are placeholders.**~~ **Decided: Klaviyo dynamic coupon.**
+   T12, T16 and T22 now render `{% coupon_code 'PILLS_NURTURE_10OFF' %}`, which
+   gives each profile its own code. **The coupon does not exist yet** and has to
+   be created in the Klaviyo UI — see *Setup still required in Klaviyo* below.
+   Until it exists the tag renders empty, so these three must not send.
+   (The doc's B11 contradiction — body `XXXXX`, P.S. `BACKAGAIN10` — is moot now
+   that the code is generated, but the P.S. still names `BACKAGAIN10` in the copy
+   doc and should be corrected at source.)
+5b. **The A6 price table does not match list price.** *Decided: keep the copy
+   doc's numbers.* T09 prints "3 boxes = 18 sachets = S$37.02", but three boxes
+   at list is 3 x S$14.90 = S$44.70. Every automatic discount in Shopify is
+   expired, so the tier comes from the `_aov_bundles` bundle app
+   ("Get-More-Save-More") and is not readable through the Admin API. The risk is
+   accepted rather than resolved: if that bundle tier is ever switched off, this
+   email quotes a price the checkout will not honour. Worth a spot-check at
+   seed-test time by actually adding three boxes to a cart.
 6. ~~**Broken product URL in the copy.**~~ **Fixed.** The copy doc misspells the
    handle as `complete-alchohol-defence` (4 occurrences); `components/09-cta-primary.html`
    carried the same typo. Shopify confirms the real handle is
    `complete-alcohol-defence`. The component is corrected; the copy doc still
    needs the same fix at source.
-7. **Review mechanic undecided.** A7/B6/C7 ask to collect the review inside the
-   email rather than sending people to Shopify. Whether that is possible depends
-   on the review app in use.
+7. ~~**Review mechanic undecided.**~~ **Closed.** The review app is Judge.me, and
+   T06 links straight to the product's Judge.me review form, as the copy doc
+   specifies. Collecting the rating inside the email body was dropped.
 8. **Hero photography.** The approved comp ships a placeholder lifestyle shot
    whose own alt text reads "real product/lifestyle photography to come". Needed
    from the client before any archetype carrying a hero ships.
@@ -129,3 +134,41 @@ The comp's component library maps 1:1 onto `components/`: `LogoPill` → 02,
 **The comp's footer has no unsubscribe link.** `components/23-footer.html` does,
 and that is the one being shipped — the tag is a legal requirement. The built
 emails therefore carry one line the client did not see in the comp.
+
+## The Day 0 CTA problem
+
+T01's button is meant to open the Shopify order-confirmation page. That URL lives
+at `$extra.order_status_url` on **Placed Order**. These flows trigger on
+**Ordered Product**, whose payload does not carry it — confirmed against a live
+event.
+
+The button currently renders:
+
+```
+{{ event|lookup:'$extra'|lookup:'order_status_url'|default:'https://drinkaid.co/account' }}
+```
+
+so it degrades to the account page instead of breaking. It will only resolve to
+a real order page if the Day 0 email is triggered by Placed Order.
+
+Two ways out, and this needs a decision:
+
+- **Leave it.** The button goes to the account page. Zero work, slightly weaker
+  than the copy promises.
+- **Split Day 0 into its own flow.** T01 is byte-identical across all three
+  tracks, so it does not need the track split at all. Move it to a single
+  Placed Order flow for first-time buyers, and start the three track flows at
+  Day 2 with a two-day opening delay. The link then works, and the Day 0 email
+  stops being maintained in triplicate. This is the better shape; it is also a
+  change to three flows that are already built.
+
+## Setup still required in Klaviyo
+
+The **coupon does not exist yet**. Create it before T12, T16 or T22 can send:
+
+Klaviyo → Content → Coupons → Create coupon → Shopify, named exactly
+`PILLS_NURTURE_10OFF`, 10% off, expiring 7 days after issue. The name is what the
+`{% coupon_code %}` tag resolves against, so it must match character for
+character. This cannot be done through the API — `create_coupon` only registers
+an external id and can set neither a discount value nor an expiry — so it is a UI
+job.

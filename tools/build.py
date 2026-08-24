@@ -69,6 +69,16 @@ def lint(name, html):
         if "alt=" not in m.group(0):
             bad.append("img with no alt attribute")
 
+    # a bare & in a URL is not valid in an HTML attribute and some clients
+    # truncate the query string at it
+    for m in re.finditer(r'href="([^"]*)"', html):
+        for amp in re.finditer(r"&(?!amp;|nbsp;|mdash;|ndash;|ldquo;|rdquo;|#)", m.group(1)):
+            bad.append("unescaped & in href: %s" % m.group(1)[:60])
+
+    # placeholders must never reach a template
+    if re.search(r"XXXXX|LOREM IPSUM|lorem ipsum", html):
+        bad.append("placeholder copy left in the template")
+
     # any row holding two side-by-side cells must be able to stack
     for m in re.finditer(r"<td[^>]*width=\"5[02]%\"[^>]*>", html):
         if "da-stack" not in m.group(0):
