@@ -21,9 +21,9 @@ STARS = CDN + "8b43610a-398f-4c58-8d64-b1a33b9e42da.png"
 # 4-icon row in its place — see flows/nurturing-v4.md.
 SOCIAL = [
     ("Facebook",  "https://www.facebook.com/drinkaid.co",     CDN + "7dea48e8-1577-4103-a621-b7fa7e535420.png"),
-    ("Instagram", "https://www.instagram.com/drinkaid.co",    CDN + "e80dc936-31d2-4369-8939-f7694a6cde1b.png"),
+    ("Instagram", "https://www.instagram.com/drinkaid.co",    CDN + "6134bedc-7055-4bc5-885c-23e90d2a6470.png"),
     ("TikTok",    "https://www.tiktok.com/@drinkaid.co",      CDN + "20781481-a9f2-400c-9ed7-85164df7fcdf.png"),
-    ("LinkedIn",  "https://www.linkedin.com/company/drinkaid", CDN + "f957394c-40d4-4148-a2b3-b8ed1cb999a8.png"),
+    ("LinkedIn",  "https://www.linkedin.com/company/drinkaid", CDN + "a5f19055-f682-4ad8-b955-922bea486c2d.png"),
 ]
 PRODUCT = "https://drinkaid.co/products/complete-alcohol-defence"
 SHARING_PACK = PRODUCT + "?variant=51911310508164"
