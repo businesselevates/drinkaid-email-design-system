@@ -135,8 +135,22 @@ is evaluated.
    `subscription_contract_checkout_one` carry a selling plan and replenish
    automatically; a "you're running low, restock" sequence is wrong for them.
    They are not excluded yet.
-3. **Mixed carts trigger twice.** An order containing both variants fires two
-   `Ordered Product` events and can enter two tracks. Needs a precedence rule.
+3. ~~**Mixed carts trigger twice.**~~ **Accepted, not fixed — client call,
+   2026-08-25.** An order containing both variants fires two `Ordered Product`
+   events and enters two tracks. The client's read is that buying an Original
+   and a Sharing Pack in one order is rare enough not to engineer around, and
+   they own that judgement about their own order mix. What is being accepted:
+   those buyers get two overlapping restock sequences, not one.
+
+   Two things blunt it, neither by design. Smart sending is on for every message
+   read back so far, so two tracks landing on the same day suppress down to one
+   send — and both tracks open at D2 on a shared top-of-funnel, which is where
+   collisions cluster. The schedules diverge later (D60 / D115 / D130), where
+   duplicates would be different emails rather than the same one twice.
+
+   Not measured. `Ordered Product`'s `$event_id` is `{order}:{line item}:{index}`,
+   so the true rate is countable by grouping pills events on that prefix if it
+   ever needs a number.
 4. **Turn off the V3 flow at cutover.** `TLYSwU`
    ("[DrinkAid] Nurturing Email (new EDM)") triggers on `Placed Order` with no
    product filter, for first-time buyers. Left running, it double-sends.
@@ -288,7 +302,7 @@ one email to the head of an existing flow is therefore either a UI edit, or a
 rebuild of all three flows from scratch under new IDs. The UI edit is the right
 call: three flows, one new email each, delay 0, attach `RqKwSt`.
 
-Two consequences of merging, worth knowing before it is done:
+Two consequences of merging:
 
 | | 4 flows (current) | 3 flows (merged) |
 |---|---|---|
@@ -296,9 +310,17 @@ Two consequences of merging, worth knowing before it is done:
 | Mixed pills cart | T01 sends once (`Placed Order` fires once) | T01 sends twice (two `Ordered Product` events) |
 | Flow objects | 4 | 3 |
 
-The mixed-cart doubling is the same defect already tracked as open item 3; the
-merge widens it to cover T01 as well. Until a precedence rule exists for that,
-keeping `Rg2fJS` separate costs one flow object and nothing else.
+The mixed-cart row is no longer a blocker: open item 3 records the client's
+decision to accept that case rather than engineer around it, and merging only
+widens an accepted risk. Two same-day sends of T01 are also the case smart
+sending suppresses most reliably, since both entries fire within minutes.
+
+So the merge is **unblocked and pending a UI edit** — three flows, one email
+each at the head, delay 0, template `RqKwSt`, subject *Better mornings start
+here*, preview *A proper thank you, from a small team in Singapore*. Delete
+`Rg2fJS` afterwards. What it buys is one fewer flow to keep in sync; what it
+costs is T01 living in three copies instead of one, so every future edit to it
+becomes three re-attaches rather than one.
 
 ## The discount
 
