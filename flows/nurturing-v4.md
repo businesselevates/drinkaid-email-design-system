@@ -38,10 +38,12 @@ returns 404 — so the way to push a repo change into a live flow is:
    with "You cannot change the links of an action."
 3. Read the new copy back and confirm the change landed.
 
-T09 was corrected this way: library `XUYvJd`, flow copy now `Sjb5K5`
-(was `R7kZ6s`, destroyed by the re-clone).
-The three unverified C11 product images live in flow message `Yed2U4`
-(Track C, D112), not only in library template `SvGkXd`.
+On 25 August all 22 library templates were rebuilt with the corrected bullet and
+footer, and **all 32 flow messages were re-attached** this way, so every copy id
+recorded before that date is stale. The C11 range email is the one that matters
+downstream: its flow copy is now `RKEWZY` (was `Yed2U4`). The three unverified
+product images live in that copy as well as in library template `SvGkXd`, so
+replacing them is a two-place job.
 
 ### Superseded flows
 
@@ -165,7 +167,7 @@ is evaluated.
 13. **Three C11 product images are unverified.** The Snuu, Easy Mode and
     Gummies shots in T20 were picked from the Klaviyo image library by name and
     have not been confirmed as the current packshots. Replace inside flow
-    message `Yed2U4` as well as library template `SvGkXd`.
+    message `RKEWZY` as well as library template `SvGkXd`.
 
 ## What was not changed
 
