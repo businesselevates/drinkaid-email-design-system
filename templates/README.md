@@ -24,10 +24,12 @@ inbox — seed-test through Klaviyo into Gmail and Outlook before anything ships
 
 ## Known gaps in what is generated here
 
-- **The coupon does not exist yet.** T12, T16 and T22 render
-  `{% coupon_code 'PILLS_NURTURE_10OFF' %}`, which resolves to a per-profile code
-  only once a Shopify dynamic coupon of exactly that name is created in the
-  Klaviyo UI. Until then the tag renders empty.
+- **The discount is one standing code, `LASTCHANCE10`.** T12, T16 and T22 print
+  it literally — no Klaviyo dynamic coupon, no per-profile code. It stacks with
+  product discounts (the volume bundles) but not with other order discounts, so
+  the bundle ladder still applies underneath it. Confirm the code is live in
+  Shopify before sending; a static code cannot carry a per-recipient expiry, so
+  the emails make no expiry claim.
 - **T09 prices come from the copy doc** and do not match Shopify list price.
   See open item 5b in `flows/nurturing-v4.md`.
 - **T20's three product images are a guess.** The approved comp shipped three

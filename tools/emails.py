@@ -18,11 +18,15 @@ SHARING = B.SHARING_PACK
 SCIENCE = "https://drinkaid.co/pages/science"
 FIND_US = "https://drinkaid.co/pages/find-us"
 HOME = "https://drinkaid.co"
-# Klaviyo mints one unique code per profile at send time from a Shopify dynamic
-# coupon of this name. The coupon itself is created in the Klaviyo UI
-# (Content > Coupons) — the API cannot set a discount value or an expiry — so
-# this tag renders empty until a coupon called exactly this exists.
-COUPON_10 = "{% coupon_code 'PILLS_NURTURE_10OFF' %}"
+# One standing Shopify code shared by every email that carries a discount, not a
+# per-profile dynamic coupon. It stacks with product discounts (the volume
+# bundles) but not with other order discounts (the newsletter-signup code), so
+# the bundle ladder still applies underneath it.
+#
+# Being static, it cannot carry a per-recipient expiry — "expires in 7 days"
+# would be a different deadline for every reader — so the emails no longer claim
+# one. If the Shopify code is ever given a fixed end date, say so as a date.
+COUPON_10 = "LASTCHANCE10"
 
 # The Shopify order-status URL lives on Placed Order, not on Ordered Product,
 # which is what these flows trigger on. The lookup therefore resolves only if
@@ -319,11 +323,11 @@ EMAILS["T12-A10-exit"] = lambda: A.nudge(
      "So if you're going to drink, DrinkAid is an easy thing to keep in the drawer.",
      "And before we leave you alone for a while, <b>here's 10% off your next order.</b>"],
     "RESTOCK NOW", PRODUCT,
-    code=(COUPON_10, "10% off your next order &mdash; expires in 7 days"),
+    code=(COUPON_10, "10% off your next order"),
     closing="With the Sharing Pack, each sachet already works out to under S$2 per drinking "
             "session. With 10% off, it's even less.<br/><br/>We'll leave you alone after this. "
             "See you whenever you need us.<br/><br/>P.S. The 10% code is just for this last "
-            "restock reminder. Use it while it's available for the next 7 days.<br/><br/>"
+            "restock reminder. Use it while it's available.<br/><br/>"
             "Cheers,<br/>Isaac<br/>CEO, DrinkAid")
 
 
@@ -418,7 +422,7 @@ EMAILS["T16-B11-exit"] = lambda: A.nudge(
      "double up: 2 Sharing Packs = 60 sachets for S$113.62.",
      "Before we leave you alone for a while, here's 10% off your next order."],
     "STOCK UP NOW", SHARING,
-    code=(COUPON_10, "10% off your next order &mdash; expires in 7 days"),
+    code=(COUPON_10, "10% off your next order"),
     closing="If you only drink occasionally, stick with the smaller pack. We'd rather you buy "
             "what you'll actually use.<br/><br/>Otherwise, stock up now and forget about it for "
             "a while. That's it from us. We'll only be back when we have something worth sharing."

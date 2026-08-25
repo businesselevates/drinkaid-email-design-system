@@ -45,6 +45,15 @@ downstream: its flow copy is now `RKEWZY` (was `Yed2U4`). The three unverified
 product images live in that copy as well as in library template `SvGkXd`, so
 replacing them is a two-place job.
 
+The three discount emails were re-attached again on 25 August for the
+`LASTCHANCE10` swap, so their copy ids moved a second time:
+
+| Message | Action | Library | Flow copy |
+|---|---|---|---|
+| A10 · D60 · Exit (T12) | `115379245` | `WBCqdK` | `UtTTTT` |
+| B11 · D115 · Exit (T16) | `115379302` | `XFGeFS` | `SUc3dj` |
+| C13 · D130 · Primary offer (T22) | `115379372` | `VjzyMt` | `SgAuqM` |
+
 ### Superseded flows
 
 `YmGiAb` / `Vt56r5` / `XVHwMq` are the first V4 build: right copy, right
@@ -101,14 +110,15 @@ is evaluated.
    07:37 that morning) — so it may already have been switched off. Nobody on
    this side changed it. Worth confirming with whoever did before treating this
    as closed, in case the status change was accidental.
-5. ~~**Coupon codes are placeholders.**~~ **Decided: Klaviyo dynamic coupon.**
-   T12, T16 and T22 now render `{% coupon_code 'PILLS_NURTURE_10OFF' %}`, which
-   gives each profile its own code. **The coupon does not exist yet** and has to
-   be created in the Klaviyo UI — see *Setup still required in Klaviyo* below.
-   Until it exists the tag renders empty, so these three must not send.
-   (The doc's B11 contradiction — body `XXXXX`, P.S. `BACKAGAIN10` — is moot now
-   that the code is generated, but the P.S. still names `BACKAGAIN10` in the copy
-   doc and should be corrected at source.)
+5. ~~**Coupon codes are placeholders.**~~ ~~**Decided: Klaviyo dynamic coupon.**~~
+   **Closed 2026-08-25: one standing code, `LASTCHANCE10`, in all three emails.**
+   T12, T16 and T22 print it literally. No Klaviyo dynamic coupon is involved, so
+   there is nothing left to create on the Klaviyo side — only a check that the
+   code is live in Shopify. Because a static code cannot expire per recipient,
+   the 7-day expiry claim was dropped from T12 and T16; see *The discount* below.
+   (The doc's B11 contradiction — body `XXXXX`, P.S. `BACKAGAIN10` — is moot, but
+   the P.S. still names `BACKAGAIN10` in the copy doc and should be corrected at
+   source.)
 5b. ~~**The A6 price table does not match list price.**~~ **Closed, and my earlier
     reading of it was wrong.** S$37.02 was not invented: it is 3 boxes after the
     8% volume discount *and* the 10% coupon (44.70 x 0.92 x 0.90 = 37.01). The
@@ -228,31 +238,30 @@ page rather than breaking if the property is ever absent.
 T01 was byte-identical across all three tracks, so this also stops the Day 0
 email being maintained in triplicate.
 
-## The coupon stacks with the volume discount
+## The discount
 
-Verified, not assumed. `Get-More-Save-More` and `Buy-More-Save-More` are both
-`DiscountCodeApp` codes from the `volume-discount` app, both ACTIVE, and both
-carry `combinesWith: {orderDiscounts: true, productDiscounts: true,
+**One standing code, `LASTCHANCE10`, shared by all three discount emails**
+(T12, T16, T22). Printed literally in the HTML — not a Klaviyo dynamic coupon,
+so there is no per-profile code and nothing to create in Klaviyo. The only
+pre-send check is that the code is live in Shopify at the right value.
+
+It **stacks with product discounts** — the volume bundles — but **not with other
+order discounts**, notably the newsletter-signup code. So the bundle ladder
+still applies underneath it and does not need special handling.
+
+Stacking with the bundle was verified independently before this was settled:
+`Get-More-Save-More` and `Buy-More-Save-More` are both `DiscountCodeApp` codes
+from the `volume-discount` app, both ACTIVE, and both carry
+`combinesWith: {orderDiscounts: true, productDiscounts: true,
 shippingDiscounts: true}`. Real orders already show a 10% code applied alongside
-the 12% volume discount (#125775, #125773, #125757, #125723), so stacking is
-live behaviour, not a theory.
+the 12% volume discount (#125775, #125773, #125757, #125723).
 
-The bundle is a **product-level** discount. For the Klaviyo coupon to combine
-with it, create it as **"applies to entire order"** and enable its
-**Combinations -> Product discounts**. All 30 legacy codes in the store from 2022
-have every `combinesWith` flag false, so this is the first use of combinations
-here.
+Accepted trade-off: at 3 boxes the customer pays 44.70 -> 41.12 (volume)
+-> 37.01 (code), about 17% off list. Signed off.
 
-Accepted trade-off: at 3 boxes the customer would pay 44.70 -> 41.12 (volume)
--> 37.01 (coupon), about 17% off list. Signed off.
-
-## Setup still required in Klaviyo
-
-The **coupon does not exist yet**. Create it before T12, T16 or T22 can send:
-
-Klaviyo → Content → Coupons → Create coupon → Shopify, named exactly
-`PILLS_NURTURE_10OFF`, 10% off, expiring 7 days after issue. The name is what the
-`{% coupon_code %}` tag resolves against, so it must match character for
-character. This cannot be done through the API — `create_coupon` only registers
-an external id and can set neither a discount value nor an expiry — so it is a UI
-job.
+**No expiry is claimed.** A single static code cannot expire a different number
+of days after each recipient opens it, so "expires in 7 days" was removed from
+T12 and T16 rather than shipped as a promise the code does not keep. T12's P.S.
+still frames it as tied to the last restock reminder, which stays true without
+naming a deadline. If the Shopify code is later given a fixed end date, say so
+as a date and put it back.
