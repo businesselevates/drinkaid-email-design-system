@@ -272,6 +272,37 @@ is evaluated.
     here — comparing against the source would mean fetching it, which the
     outbound block prevents.
 
+    **Easy Mode changed again the same day.** The client checked the preview:
+    Gummies was right, Easy Mode was not. The comp's Easy Mode shot is a bottle
+    held against plain white, so on a white email canvas the card read as half
+    empty next to Snuu and Gummies, which both fill their frame — the problem
+    was framing, not identity.
+
+    The replacement came out of the client's Drive folder, per product. Two
+    findings about that folder, both worth keeping:
+
+    - The ~30 `EasyMode ads - *.png` files are ad creative with headlines burned
+      into the pixels ("Coffee 2.0", "Get shit done"). Unusable next to two
+      clean cards; do not reach for them.
+    - The six `DrinkAid EDM (n).png` files are Canva exports from the EDM deck,
+      the same design language as the comp. These are the right family.
+
+    All six were imported to the Klaviyo library as `[cand] EDM n` so the client
+    could look at them and choose — this session cannot see images, `Read` on an
+    image needs a local file, and both `drive.google.com` and
+    `lh3.googleusercontent.com` are 403 at the proxy under org policy. Klaviyo's
+    server-side fetch is the only route that reaches Drive, and only via
+    `https://lh3.googleusercontent.com/d/{FILE_ID}`.
+
+    The client picked EDM 5, now image `362441412`. Five of the six imports came
+    back byte-for-byte identical to Drive's `fileSize`, so the integrity check is
+    available again on this route. The exception was EDM 7: 4,493,315 bytes in,
+    743,316 out — Klaviyo recompressed it. Under 5MB, so not the documented size
+    limit; treat multi-megabyte PNGs as re-encoded on import and check the
+    preview rather than trusting the upload. The five unused candidates are set
+    `hidden` (Klaviyo has no delete-image endpoint), as is the earlier
+    `[probe] drive fetch test`, `362436660`.
+
 ## What was not changed
 
 The V3 drafts `Rwcjte` / `S692Vg` / `TpnCpK` and every `[Pills]` template from

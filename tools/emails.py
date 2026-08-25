@@ -44,8 +44,16 @@ JUDGEME = ("https://judge.me/product_reviews/b3577d33-2024-4571-ac24-28c5287508f
 #
 # The comp's third image, the pills box `93ae336c`, is dropped: C11 is about the
 # rest of the range, and the reader has already bought the pills.
+#
+# The Easy Mode shot changed again later the same day. The comp's own shot is a
+# bottle held against a plain white ground, so on a white email canvas the card
+# read as half empty next to Snuu and Gummies, which both fill their frame. It
+# was replaced with an export from the client's EDM deck, picked by the client
+# from the six candidates imported out of the Drive "Easy mode" folder. The rest
+# of that folder is ad creative with headlines burned into the pixels, unusable
+# beside two clean cards.
 IMG_SNUU = B.CDN + "aea45699-2473-42c7-9c79-758c48c2d87f.jpeg"
-IMG_EASY_MODE = B.CDN + "6325be8b-636a-48ab-ba5f-5551e464b6c9.jpeg"
+IMG_EASY_MODE = B.CDN + "45fd6c81-0b1a-4289-a08d-af28ffa5c7eb.png"
 IMG_GUMMIES = B.CDN + "bfde5d69-7f5f-48ce-9c9d-f96eeb18ac62.png"
 
 EMAILS = {}

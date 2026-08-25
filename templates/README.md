@@ -36,9 +36,12 @@ inbox — seed-test through Klaviyo into Gmail and Outlook before anything ships
   three CategoryCard images without labelling which is Snuu, Easy Mode or
   Gummies, and the first build guessed from the comp's order. Checked against
   the Klaviyo preview, only Snuu was right; Easy Mode carried the pills box and
-  Gummies carried the Easy Mode bottle. Easy Mode now points at the shot that
-  was on the Gummies card, Gummies at the Shopify product image, and the pills
-  box is dropped.
+  Gummies carried the Easy Mode bottle. Gummies now points at the Shopify
+  product image and the pills box is dropped. Easy Mode briefly took the shot
+  that had been on the Gummies card, then took a second pass the same day: that
+  shot is a bottle on plain white, so on a white canvas the card read as half
+  empty beside two cards that fill their frame. It now uses an export from the
+  client's EDM deck, chosen by the client from the Drive "Easy mode" folder.
 - **T01 has no CTA button, on purpose.** The client signed off on removing it on
   2026-08-25: Shopify already emails the order link at checkout, the letter's own
   copy promises tracking when the parcel ships, and the fallback pointed at an
