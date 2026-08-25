@@ -144,18 +144,16 @@ is evaluated.
 
 ## Open items before these can go live
 
-> **Defect — all three track trigger filters were built inside out.** Klaviyo
-> ORs the conditions within a condition group and ANDs across groups; the first
-> build put each track's conditions into a single group, so every track's filter
-> read as an OR. Track B's was a tautology (`Quantity >= 3 OR Quantity <= 4` is
-> true of every number), so it would have admitted every `Ordered Product` event
-> in the account. See *How Klaviyo combines trigger conditions* above for the
-> grammar and the corrected shape of each filter.
->
-> `update_flow` only accepts a status change, so trigger filters cannot be
-> patched through the API — this is a UI rebuild, one bullet per ANDed
-> condition. All three flows are drafts and the live sequence is still V3
-> `TLYSwU`, so nothing shipped mis-segmented.
+> ~~**Defect — all three track trigger filters were built inside out.**~~
+> **Fixed in the UI, 2026-08-25, and verified by reading all three back.** The
+> first build ORed each track's conditions by putting them in one condition
+> group; Track B's was a tautology (`Quantity >= 3 OR Quantity <= 4`) and would
+> have admitted every `Ordered Product` event in the account. Rebuilt one group
+> per ANDed condition — A is 3 groups, B is 4, C is 2 with the OR pair in the
+> second. Checked against every purchasable quantity: no tile lands in two
+> tracks and none falls outside all three. Nothing had shipped mis-segmented;
+> all three were drafts throughout. See *How Klaviyo combines trigger
+> conditions* above for the grammar.
 
 1. ~~**Confirm the full variant list.**~~ **Closed.** Shopify shows the product
    has exactly two variants — `Original (6 Sachets)` / `DACAD01` / S$14.90 and
