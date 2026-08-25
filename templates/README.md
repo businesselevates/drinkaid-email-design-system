@@ -35,7 +35,8 @@ inbox — seed-test through Klaviyo into Gmail and Outlook before anything ships
 - **T20's three product images are a guess.** The approved comp shipped three
   CategoryCard images without labelling which is Snuu, Easy Mode or Gummies;
   they are assigned here in the order the comp used them and must be checked.
-- **T01's CTA falls back to the account page.** It looks up
-  `$extra.order_status_url`, which exists on `Placed Order` but not on
-  `Ordered Product` — the trigger these flows use. See "The Day 0 CTA problem" in
-  `flows/nurturing-v4.md`.
+- **T01 has no CTA button, on purpose.** The client signed off on removing it on
+  2026-08-25: Shopify already emails the order link at checkout, the letter's own
+  copy promises tracking when the parcel ships, and the fallback pointed at an
+  account page most guest checkouts cannot open. `A.welcome()` now takes `cta`
+  and `href` as optional. See "The Day 0 CTA problem" in `flows/nurturing-v4.md`.

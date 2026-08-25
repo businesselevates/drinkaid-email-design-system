@@ -17,12 +17,14 @@ def _tail(extra=None):
     return (extra or []) + [B.support_line(), B.footer()]
 
 
-def welcome(title, preheader, eyebrow, h1, h1_italic, paras, cta, href, hero=None, hero_alt=""):
+def welcome(title, preheader, eyebrow, h1, h1_italic, paras, cta=None, href=None,
+            hero=None, hero_alt=""):
     rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic)]
     if hero:
         rows.append(B.hero_inset(hero, hero_alt))
     rows.append(B.body("<br/><br/>".join(paras)))
-    rows.append(B.cta_primary(cta, href))
+    if cta:
+        rows.append(B.cta_primary(cta, href))
     return render(title, preheader, rows + _tail())
 
 

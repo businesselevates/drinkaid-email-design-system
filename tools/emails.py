@@ -28,13 +28,6 @@ HOME = "https://drinkaid.co"
 # one. If the Shopify code is ever given a fixed end date, say so as a date.
 COUPON_10 = "LASTCHANCE10"
 
-# The Shopify order-status URL lives on Placed Order, not on Ordered Product,
-# which is what these flows trigger on. The lookup therefore resolves only if
-# this email is moved to a Placed Order trigger; the default keeps the button
-# pointing somewhere real either way. See flows/nurturing-v4.md.
-ORDER_CONFIRMATION = ("{{ event|lookup:'$extra'|lookup:'order_status_url'"
-                      "|default:'https://drinkaid.co/account' }}")
-
 JUDGEME = ("https://judge.me/product_reviews/b3577d33-2024-4571-ac24-28c5287508fe/"
            "new?id=6673927897220&amp;source=shareable-link")
 
@@ -67,8 +60,7 @@ EMAILS["T01-welcome"] = lambda: A.welcome(
      "A handful of emails over the next few weeks, and we will keep them worth opening. The "
      "next one is the one that actually matters: when to take DrinkAid, and why the timing "
      "does more work than anything else we could tell you.",
-     "Cheers,<br/>Isaac"],
-    "VIEW MY ORDER", ORDER_CONFIRMATION)
+     "Cheers,<br/>Isaac"])
 
 
 EMAILS["T02-umbrella"] = lambda: A.education_table(

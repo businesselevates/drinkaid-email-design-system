@@ -252,50 +252,53 @@ The comp's component library maps 1:1 onto `components/`: `LogoPill` → 02,
 and that is the one being shipped — the tag is a legal requirement. The built
 emails therefore carry one line the client did not see in the comp.
 
-## The Day 0 CTA problem — resolved
+## The Day 0 CTA — button removed, 2026-08-25
 
-T01's button opens the Shopify order-confirmation page. That URL lives at
-`$extra.order_status_url`, which **only `Placed Order` carries** — confirmed
-against a live event. The track flows trigger on `Ordered Product`, whose
-payload does not have it.
+T01 used to end with a **VIEW MY ORDER** button pointing at the Shopify
+order-confirmation page (`$extra.order_status_url`, which only `Placed Order`
+carries). **The client signed off on removing it**, for three reasons that all
+hold independently:
 
-Day 0 is therefore its own flow (`Rg2fJS`), triggered on `Placed Order` filtered
-to orders whose `Items` contain the pills. The button renders:
+1. Shopify already emails its own order confirmation, carrying that link, within
+   seconds of checkout. By the time T01 lands the customer has it.
+2. T01's own body says *"Once yours ships, we will send the tracking link
+   straight over."* The button offered the thing the paragraph above it had just
+   promised to send later.
+3. The `|default:` fallback pointed at `drinkaid.co/account`. Checkout is guest
+   by default — the one live order read for this had the customer at
+   `state: "disabled"`, i.e. no account — so the fallback was a login wall
+   rather than an order page.
 
-```
-{{ event|lookup:'$extra'|lookup:'order_status_url'|default:'https://drinkaid.co/account' }}
-```
+T01 is now a founder's letter with no button. `archetypes.welcome()` takes `cta`
+and `href` as optional, matching `education_table` and `explainer`; the support
+line ("reply to this email — a human reads it") still closes it, and the first
+real CTA in the sequence now lands on T02.
 
-which now resolves to the real order page, and still degrades to the account
-page rather than breaking if the property is ever absent.
+Library template `RqKwSt` re-uploaded and re-attached to `Rg2fJS`; the flow copy
+is now **`VZkKkB`** (was `SQshAX`).
 
-T01 was byte-identical across all three tracks, so this also stops the Day 0
-email being maintained in triplicate.
+### Folding Day 0 into the three track flows
 
-### Could Day 0 be folded back into the three track flows?
+Removing the button removes the only reason the flows were split: T01 no longer
+needs order-level data, so all four flows could run off `Ordered Product` alone.
 
-Yes, technically — put T01 at the head of each track flow with a zero delay and
-delete `Rg2fJS`. It is a real trade, not a blocker, and the whole trade is the
-order-tracking link:
+**The API cannot do it.** There is no `create_flow_action` — actions can only be
+added by `create_flow`, which builds a whole flow from a full definition. Adding
+one email to the head of an existing flow is therefore either a UI edit, or a
+rebuild of all three flows from scratch under new IDs. The UI edit is the right
+call: three flows, one new email each, delay 0, attach `RqKwSt`.
+
+Two consequences of merging, worth knowing before it is done:
 
 | | 4 flows (current) | 3 flows (merged) |
 |---|---|---|
-| T01 CTA | real order-confirmation page | falls back to the account page |
-| T01 copies to maintain | 1 | 3 — and each edit is its own re-attach |
+| T01 copies to maintain | 1 | 3 — each edit is its own re-attach |
 | Mixed pills cart | T01 sends once (`Placed Order` fires once) | T01 sends twice (two `Ordered Product` events) |
 | Flow objects | 4 | 3 |
 
-The split is not organisational tidiness; it follows a real seam in the data.
-Day 0 is the only email that needs **order-level** data (the tracking URL, which
-lives on `Placed Order`); every other email needs **line-level** data (quantity,
-which only `Ordered Product` exposes to a filter). No filter grammar bridges the
-two metrics, so the flow boundary sits where the metric boundary already is.
-
-The counter-argument worth weighing: Shopify already sends its own order
-confirmation with a tracking link the moment the order is placed, so T01's
-button largely duplicates something the customer has. If the client is happy to
-drop it, merging is clean and the fallback CTA is a reasonable email on its own.
-Left at 4 flows pending that call.
+The mixed-cart doubling is the same defect already tracked as open item 3; the
+merge widens it to cover T01 as well. Until a precedence rule exists for that,
+keeping `Rg2fJS` separate costs one flow object and nothing else.
 
 ## The discount
 
