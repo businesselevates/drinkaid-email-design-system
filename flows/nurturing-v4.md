@@ -71,13 +71,31 @@ its `Items` property holds only the product title, so the pack size is invisible
 The flows therefore trigger on **`Ordered Product`** (`Y669Xq`), which does carry
 `Quantity`, `Variant Name` and `SKU`.
 
-| Track | Trigger filter |
-|---|---|
-| A | Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity ≤ 2 |
-| B | Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity 3–4 |
-| C | (Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity ≥ 5) **OR** (Name = pills **AND** Variant = `Sharing Pack (30 Sachets)`) |
+| Track | Trigger filter as intended | As actually stored |
+|---|---|---|
+| A | Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity ≤ 2 | **Variant condition missing** — see the defect callout under *Open items* |
+| B | Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity 3–4 | matches |
+| C | (Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity ≥ 5) **OR** (Name = pills **AND** Variant = `Sharing Pack (30 Sachets)`) | matches |
 
 One Sharing Pack is 30 sachets ≈ 5 boxes, which is why it lands in C.
+
+The storefront sells the Original in fixed quantity tiles of **1, 2, 3, 6 and 9
+boxes** (at 0 / 5 / 8 / 12 / 15% off), so in practice A catches 1–2, B catches
+only 3, and C catches 6, 9 or any Sharing Pack. Quantities 4 and 5 are
+unreachable from the product page. The ranges are kept rather than pinned to the
+exact tiles so the split still holds if a customer edits quantity in the cart or
+the tiles are ever changed.
+
+### Why the split has to live on `Ordered Product`
+
+`Placed Order` does carry the line-level data — `$extra.line_items[]` holds
+`quantity`, `sku` and `variant_title` on every order, verified on a live event.
+What it cannot do is **filter** on it. A trigger filter condition is
+`{"type": "metric-property", "field": "<one flat property>", "filter": {...}}`
+with a single scalar operator; `line_items` is an array of objects and the
+grammar has no "any element matches" quantifier. So the data is visible to a
+template but unreachable by a filter, which is why the tracks trigger on
+`Ordered Product` instead.
 
 Shared by all four: profile filter **`Placed Order` at most 1 over all time**,
 and re-entry disabled.
@@ -92,6 +110,22 @@ email still sends if the order event has not finished indexing when the filter
 is evaluated.
 
 ## Open items before these can go live
+
+> **Defect — Track A's trigger filter is missing its variant condition.** Read
+> back from Klaviyo on 2026-08-25, `W2S7G4`'s stored filter is only
+> `Name = pills AND Quantity <= 2`. The `Variant Name = Original (6 Sachets)`
+> condition that B and C both carry is absent.
+>
+> Effect: someone who buys **one Sharing Pack** produces an `Ordered Product`
+> with Name = pills, Variant = Sharing Pack, Quantity = 1. That matches Track A
+> (quantity ≤ 2) *and* Track C's second condition group, so they enter **both**
+> tracks and receive two overlapping nurture sequences — the 1–2 box sequence
+> they should never see, plus the correct one.
+>
+> `update_flow` only accepts a status change, so the trigger filter cannot be
+> patched through the API. Fix in the UI: flow `W2S7G4` → trigger → add
+> `Variant Name equals Original (6 Sachets)` alongside the two existing
+> conditions. All three flows are drafts, so nothing has shipped wrong yet.
 
 1. ~~**Confirm the full variant list.**~~ **Closed.** Shopify shows the product
    has exactly two variants — `Original (6 Sachets)` / `DACAD01` / S$14.90 and
@@ -237,6 +271,31 @@ page rather than breaking if the property is ever absent.
 
 T01 was byte-identical across all three tracks, so this also stops the Day 0
 email being maintained in triplicate.
+
+### Could Day 0 be folded back into the three track flows?
+
+Yes, technically — put T01 at the head of each track flow with a zero delay and
+delete `Rg2fJS`. It is a real trade, not a blocker, and the whole trade is the
+order-tracking link:
+
+| | 4 flows (current) | 3 flows (merged) |
+|---|---|---|
+| T01 CTA | real order-confirmation page | falls back to the account page |
+| T01 copies to maintain | 1 | 3 — and each edit is its own re-attach |
+| Mixed pills cart | T01 sends once (`Placed Order` fires once) | T01 sends twice (two `Ordered Product` events) |
+| Flow objects | 4 | 3 |
+
+The split is not organisational tidiness; it follows a real seam in the data.
+Day 0 is the only email that needs **order-level** data (the tracking URL, which
+lives on `Placed Order`); every other email needs **line-level** data (quantity,
+which only `Ordered Product` exposes to a filter). No filter grammar bridges the
+two metrics, so the flow boundary sits where the metric boundary already is.
+
+The counter-argument worth weighing: Shopify already sends its own order
+confirmation with a tracking link the moment the order is placed, so T01's
+button largely duplicates something the customer has. If the client is happy to
+drop it, merging is clean and the fallback CTA is a reasonable email on its own.
+Left at 4 flows pending that call.
 
 ## The discount
 
