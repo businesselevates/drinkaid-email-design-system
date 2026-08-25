@@ -71,11 +71,44 @@ its `Items` property holds only the product title, so the pack size is invisible
 The flows therefore trigger on **`Ordered Product`** (`Y669Xq`), which does carry
 `Quantity`, `Variant Name` and `SKU`.
 
-| Track | Trigger filter as intended | As actually stored |
-|---|---|---|
-| A | Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity ≤ 2 | **Variant condition missing** — see the defect callout under *Open items* |
-| B | Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity 3–4 | matches |
-| C | (Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity ≥ 5) **OR** (Name = pills **AND** Variant = `Sharing Pack (30 Sachets)`) | matches |
+| Track | Trigger filter |
+|---|---|
+| A | Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity ≤ 2 |
+| B | Name = pills **AND** Variant = `Original (6 Sachets)` **AND** Quantity ≥ 3 **AND** Quantity ≤ 4 |
+| C | Name = pills **AND** (Quantity ≥ 5 **OR** Variant = `Sharing Pack (30 Sachets)`) |
+
+### How Klaviyo combines trigger conditions — groups are AND, conditions are OR
+
+Established from the UI on 2026-08-25, after the first build got it backwards.
+The stored JSON carries no `and` / `or` keyword at all, only
+`condition_groups[]` each holding `conditions[]`, so the semantics are invisible
+from the API and have to be read off the flow editor:
+
+- **Separate `condition_groups` are ANDed.** The editor draws each as its own
+  bullet with **AND** between them.
+- **`conditions` inside one group are ORed.** The editor stacks them under a
+  single bullet with **OR** between them.
+
+The first build assumed the opposite and put every condition of a track into one
+group, which ORed them. Track B's group contained `Quantity >= 3` and
+`Quantity <= 4` — as an OR that is true of every number, so the whole filter
+was a tautology and the flow would have accepted **every `Ordered Product`
+event in the account**, any product. A and C were wrong the same way. Nothing
+shipped: all three were drafts throughout.
+
+So an AND of N conditions is N groups of one condition each. Track C needs an OR
+of two AND-clauses, which this grammar cannot hold directly — it expresses
+conjunctive normal form only. Distributing it gives a form that fits, and one
+clause falls out as redundant because the product has exactly two variants:
+
+    pills AND ((Original AND qty>=5) OR SharingPack)
+  = pills AND (Original OR SharingPack) AND (qty>=5 OR SharingPack)
+  = pills AND (qty>=5 OR SharingPack)          <- first clause always true
+
+Which is why C is two groups rather than four. Checked against each tile:
+Original at 1 or 2 fails group 2 and lands in A; at 3 it fails group 2 and lands
+in B; at 6 or 9 it passes and lands in C; a Sharing Pack passes on the variant
+arm at any quantity. No tile matches two tracks.
 
 One Sharing Pack is 30 sachets ≈ 5 boxes, which is why it lands in C.
 
@@ -111,21 +144,18 @@ is evaluated.
 
 ## Open items before these can go live
 
-> **Defect — Track A's trigger filter is missing its variant condition.** Read
-> back from Klaviyo on 2026-08-25, `W2S7G4`'s stored filter is only
-> `Name = pills AND Quantity <= 2`. The `Variant Name = Original (6 Sachets)`
-> condition that B and C both carry is absent.
+> **Defect — all three track trigger filters were built inside out.** Klaviyo
+> ORs the conditions within a condition group and ANDs across groups; the first
+> build put each track's conditions into a single group, so every track's filter
+> read as an OR. Track B's was a tautology (`Quantity >= 3 OR Quantity <= 4` is
+> true of every number), so it would have admitted every `Ordered Product` event
+> in the account. See *How Klaviyo combines trigger conditions* above for the
+> grammar and the corrected shape of each filter.
 >
-> Effect: someone who buys **one Sharing Pack** produces an `Ordered Product`
-> with Name = pills, Variant = Sharing Pack, Quantity = 1. That matches Track A
-> (quantity ≤ 2) *and* Track C's second condition group, so they enter **both**
-> tracks and receive two overlapping nurture sequences — the 1–2 box sequence
-> they should never see, plus the correct one.
->
-> `update_flow` only accepts a status change, so the trigger filter cannot be
-> patched through the API. Fix in the UI: flow `W2S7G4` → trigger → add
-> `Variant Name equals Original (6 Sachets)` alongside the two existing
-> conditions. All three flows are drafts, so nothing has shipped wrong yet.
+> `update_flow` only accepts a status change, so trigger filters cannot be
+> patched through the API — this is a UI rebuild, one bullet per ANDed
+> condition. All three flows are drafts and the live sequence is still V3
+> `TLYSwU`, so nothing shipped mis-segmented.
 
 1. ~~**Confirm the full variant list.**~~ **Closed.** Shopify shows the product
    has exactly two variants — `Original (6 Sachets)` / `DACAD01` / S$14.90 and
