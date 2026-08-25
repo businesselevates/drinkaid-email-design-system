@@ -52,6 +52,16 @@ JUDGEME = ("https://judge.me/product_reviews/b3577d33-2024-4571-ac24-28c5287508f
 # from the six candidates imported out of the Drive "Easy mode" folder. The rest
 # of that folder is ad creative with headlines burned into the pixels, unusable
 # beside two clean cards.
+# T01's hero. Chosen over the other candidate, `2026 May - BOFU - DRINKAID 4x5
+# ADS.jpg`, on three grounds that do not need the image to be seen: that one is a
+# bottom-of-funnel acquisition creative, and T01 goes to somebody who has just
+# paid; it would reintroduce a sales pitch to the one email the client
+# deliberately stripped the CTA button out of; and `4x5` in its name means
+# portrait, which at 520px wide is a ~650px wall of image above a letter whose
+# whole point is the letter. This one is an export from the client's EDM deck,
+# the same family as the C11 cards they signed off on.
+IMG_T01_HERO = B.CDN + "f4d01ce1-de30-48e8-b75e-ef23c4382d4f.png"
+
 IMG_SNUU = B.CDN + "aea45699-2473-42c7-9c79-758c48c2d87f.jpeg"
 IMG_EASY_MODE = B.CDN + "45fd6c81-0b1a-4289-a08d-af28ffa5c7eb.png"
 IMG_GUMMIES = B.CDN + "bfde5d69-7f5f-48ce-9c9d-f96eeb18ac62.png"
@@ -78,7 +88,8 @@ EMAILS["T01-welcome"] = lambda: A.welcome(
      "A handful of emails over the next few weeks, and we will keep them worth opening. The "
      "next one is the one that actually matters: when to take DrinkAid, and why the timing "
      "does more work than anything else we could tell you.",
-     "Cheers,<br/>Isaac"])
+     "Cheers,<br/>Isaac"],
+    hero=IMG_T01_HERO, hero_alt="DrinkAid")
 
 
 EMAILS["T02-umbrella"] = lambda: A.education_table(
