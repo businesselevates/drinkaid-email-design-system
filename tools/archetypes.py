@@ -30,8 +30,11 @@ def welcome(title, preheader, eyebrow, h1, h1_italic, paras, cta=None, href=None
 
 def education_table(title, preheader, eyebrow, h1, h1_italic, intro,
                     panel=None, table_rows=None, bullets=None, closing=None,
-                    cta=None, href=None):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic), B.body(intro)]
+                    cta=None, href=None, hero=None, hero_alt=""):
+    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic)]
+    if hero:
+        rows.append(B.hero_inset(hero, hero_alt))
+    rows.append(B.body(intro))
     if panel:
         rows.append(B.mint_panel(*panel))
     if table_rows:
@@ -46,9 +49,12 @@ def education_table(title, preheader, eyebrow, h1, h1_italic, intro,
 
 
 def explainer(title, preheader, eyebrow, h1, h1_italic, intro, items,
-              closing=None, cta=None, href=None, outline=False):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic),
-            B.body(intro), B.numbered_explainer(items)]
+              closing=None, cta=None, href=None, outline=False,
+              hero=None, hero_alt=""):
+    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic)]
+    if hero:
+        rows.append(B.hero_inset(hero, hero_alt))
+    rows += [B.body(intro), B.numbered_explainer(items)]
     if closing:
         rows.append(B.body(closing, top=6))
     if cta:
