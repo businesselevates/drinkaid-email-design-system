@@ -32,11 +32,21 @@ JUDGEME = ("https://judge.me/product_reviews/b3577d33-2024-4571-ac24-28c5287508f
            "new?id=6673927897220&amp;source=shareable-link")
 
 # The comp shipped three CategoryCard images without saying which product each
-# one is. Assignment below follows the order they appear in the comp and MUST be
-# checked against the real Snuu / Easy Mode / Gummies shots before C11 ships.
+# one is, so the first build assigned them in the order the comp used them. Two
+# of the three were wrong, confirmed against the Klaviyo preview on 2026-08-25:
+# the Easy Mode card carried a shot of the pills box, and the Gummies card
+# carried the Easy Mode bottle. Only Snuu was right.
+#
+# The Easy Mode shot was therefore already in hand, just on the wrong card. Only
+# Gummies needed a new asset; it comes from the Shopify product image, imported
+# server-side by Klaviyo (`upload_image_from_url` fetches the URL itself, which
+# is how it gets past the outbound block on the storefront CDN).
+#
+# The comp's third image, the pills box `93ae336c`, is dropped: C11 is about the
+# rest of the range, and the reader has already bought the pills.
 IMG_SNUU = B.CDN + "aea45699-2473-42c7-9c79-758c48c2d87f.jpeg"
-IMG_EASY_MODE = B.CDN + "93ae336c-c8c8-4585-96eb-f9fd2916365c.png"
-IMG_GUMMIES = B.CDN + "6325be8b-636a-48ab-ba5f-5551e464b6c9.jpeg"
+IMG_EASY_MODE = B.CDN + "6325be8b-636a-48ab-ba5f-5551e464b6c9.jpeg"
+IMG_GUMMIES = B.CDN + "bfde5d69-7f5f-48ce-9c9d-f96eeb18ac62.png"
 
 EMAILS = {}
 

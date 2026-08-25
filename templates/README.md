@@ -32,9 +32,13 @@ inbox — seed-test through Klaviyo into Gmail and Outlook before anything ships
   the emails make no expiry claim.
 - **T09 prices come from the copy doc** and do not match Shopify list price.
   See open item 5b in `flows/nurturing-v4.md`.
-- **T20's three product images are a guess.** The approved comp shipped three
-  CategoryCard images without labelling which is Snuu, Easy Mode or Gummies;
-  they are assigned here in the order the comp used them and must be checked.
+- **T20's product images were re-assigned on 2026-08-25.** The comp shipped
+  three CategoryCard images without labelling which is Snuu, Easy Mode or
+  Gummies, and the first build guessed from the comp's order. Checked against
+  the Klaviyo preview, only Snuu was right; Easy Mode carried the pills box and
+  Gummies carried the Easy Mode bottle. Easy Mode now points at the shot that
+  was on the Gummies card, Gummies at the Shopify product image, and the pills
+  box is dropped.
 - **T01 has no CTA button, on purpose.** The client signed off on removing it on
   2026-08-25: Shopify already emails the order link at checkout, the letter's own
   copy promises tracking when the parcel ships, and the fallback pointed at an

@@ -41,9 +41,10 @@ returns 404 — so the way to push a repo change into a live flow is:
 On 25 August all 22 library templates were rebuilt with the corrected bullet and
 footer, and **all 32 flow messages were re-attached** this way, so every copy id
 recorded before that date is stale. The C11 range email is the one that matters
-downstream: its flow copy is now `RKEWZY` (was `Yed2U4`). The three unverified
-product images live in that copy as well as in library template `SvGkXd`, so
-replacing them is a two-place job.
+downstream: its flow copy was `RKEWZY` (was `Yed2U4`), and moved again to
+**`Y8MmE5`** when the product images were corrected. Images live in the flow
+copy as well as in library template `SvGkXd`, so replacing one is a two-place
+job.
 
 The three discount emails were re-attached again on 25 August for the
 `LASTCHANCE10` swap, so their copy ids moved a second time:
@@ -250,10 +251,26 @@ is evaluated.
     recent orders ranged S$10.92-15.39. The quoted prices are correct for
     Singapore only. Either label them as such, restrict the price-bearing emails
     to the SG market, or drop absolute figures.
-13. **Three C11 product images are unverified.** The Snuu, Easy Mode and
-    Gummies shots in T20 were picked from the Klaviyo image library by name and
-    have not been confirmed as the current packshots. Replace inside flow
-    message `RKEWZY` as well as library template `SvGkXd`.
+13. ~~**Three C11 product images are unverified.**~~ **Two were wrong; fixed
+    2026-08-25.** Checked against the Klaviyo preview: only Snuu was right. The
+    Easy Mode card carried a shot of the pills box, and the Gummies card carried
+    the Easy Mode bottle — so the Easy Mode shot was already in hand, one card
+    too far down. Re-pointing it left Gummies as the only genuinely missing
+    asset.
+
+    That one came from the Shopify product image. `upload_image_from_url`
+    fetches the URL **server-side at Klaviyo**, so it reaches the storefront CDN
+    even though this session's outbound access to that host is blocked — no file
+    transfer needed, and it is the canonical shot rather than an ad crop. New
+    image id `362430726`.
+
+    The comp's third image (the pills box, `93ae336c`) is dropped: C11 is about
+    the rest of the range and the reader has already bought the pills.
+
+    Still worth an eyeball in preview. The Gummies import is a 934KB PNG, and
+    the byte-count check that caught the mangled social icons cannot be applied
+    here — comparing against the source would mean fetching it, which the
+    outbound block prevents.
 
 ## What was not changed
 
