@@ -17,9 +17,9 @@ def _tail(extra=None):
     return (extra or []) + [B.support_line(), B.footer()]
 
 
-def welcome(title, preheader, eyebrow, h1, h1_italic, paras, cta=None, href=None,
+def welcome(title, preheader, h1, h1_italic, paras, cta=None, href=None,
             hero=None, hero_alt=""):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic)]
+    rows = [B.header_logo_pill(), B.headline(h1, h1_italic)]
     if hero:
         rows.append(B.hero_inset(hero, hero_alt))
     rows.append(B.body("<br/><br/>".join(paras)))
@@ -28,10 +28,10 @@ def welcome(title, preheader, eyebrow, h1, h1_italic, paras, cta=None, href=None
     return render(title, preheader, rows + _tail())
 
 
-def education_table(title, preheader, eyebrow, h1, h1_italic, intro,
+def education_table(title, preheader, h1, h1_italic, intro,
                     panel=None, table_rows=None, bullets=None, closing=None,
                     cta=None, href=None, hero=None, hero_alt=""):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic)]
+    rows = [B.header_logo_pill(), B.headline(h1, h1_italic)]
     if hero:
         rows.append(B.hero_inset(hero, hero_alt))
     rows.append(B.body(intro))
@@ -48,10 +48,10 @@ def education_table(title, preheader, eyebrow, h1, h1_italic, intro,
     return render(title, preheader, rows + _tail())
 
 
-def explainer(title, preheader, eyebrow, h1, h1_italic, intro, items,
+def explainer(title, preheader, h1, h1_italic, intro, items,
               closing=None, cta=None, href=None, outline=False,
               hero=None, hero_alt=""):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic)]
+    rows = [B.header_logo_pill(), B.headline(h1, h1_italic)]
     if hero:
         rows.append(B.hero_inset(hero, hero_alt))
     rows += [B.body(intro), B.numbered_explainer(items)]
@@ -69,9 +69,9 @@ def founder_letter(title, preheader, paras, signoff="Cheers,", name="Isaac",
     return render(title, preheader, rows + _tail())
 
 
-def nudge(title, preheader, eyebrow, h1, h1_italic, paras, cta=None, href=None,
+def nudge(title, preheader, h1, h1_italic, paras, cta=None, href=None,
           panel=None, closing=None, code=None, bullets=None):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic),
+    rows = [B.header_logo_pill(), B.headline(h1, h1_italic),
             B.body("<br/><br/>".join(paras))]
     if panel:
         rows.append(B.mint_panel(*panel))
@@ -86,9 +86,9 @@ def nudge(title, preheader, eyebrow, h1, h1_italic, paras, cta=None, href=None,
     return render(title, preheader, rows + _tail())
 
 
-def offer_compare(title, preheader, eyebrow, h1, h1_italic, intro, left, right,
+def offer_compare(title, preheader, h1, h1_italic, intro, left, right,
                   closing=None, cta=None, href=None, code=None):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic),
+    rows = [B.header_logo_pill(), B.headline(h1, h1_italic),
             B.body(intro), B.offer_compare(left, right)]
     if code:
         rows.append(B.offer_code(*code))
@@ -99,9 +99,9 @@ def offer_compare(title, preheader, eyebrow, h1, h1_italic, intro, left, right,
     return render(title, preheader, rows + _tail())
 
 
-def review_request(title, preheader, eyebrow, h1, h1_italic, paras, cta, href,
+def review_request(title, preheader, h1, h1_italic, paras, cta, href,
                    review=None, closing=None):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic),
+    rows = [B.header_logo_pill(), B.headline(h1, h1_italic),
             B.body("<br/><br/>".join(paras))]
     if review:
         rows.append(B.review_card(*review))
@@ -111,9 +111,9 @@ def review_request(title, preheader, eyebrow, h1, h1_italic, paras, cta, href,
     return render(title, preheader, rows + _tail())
 
 
-def range_crosssell(title, preheader, eyebrow, h1, h1_italic, intro, cards,
+def range_crosssell(title, preheader, h1, h1_italic, intro, cards,
                     closing=None):
-    rows = [B.header_logo_pill(), B.eyebrow_headline(eyebrow, h1, h1_italic), B.body(intro)]
+    rows = [B.header_logo_pill(), B.headline(h1, h1_italic), B.body(intro)]
     for c in cards:
         rows.append(B.category_card(**c))
     if closing:

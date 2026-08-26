@@ -49,13 +49,13 @@ def header_bar():
 </tr>"""
 
 
-def eyebrow_headline(eyebrow, line1, line2_italic=None):
+def headline(line1, line2_italic=None):
+    # The comp put a small uppercase eyebrow above this ("TIME TO RESTOCK" and
+    # friends). The client dropped it on 26 August, so the headline now carries
+    # the eyebrow's 34px top padding and sits directly under the logo.
     head = line1 if not line2_italic else f'{line1}<br/><em style="font-style:italic;">{line2_italic}</em>'
     return f"""<tr>
-  <td align="center" class="da-gut" style="padding:34px 40px 0 40px; font-family:{FONT}; font-size:13px; line-height:18px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:{FOREST};">{eyebrow}</td>
-</tr>
-<tr>
-  <td align="center" class="da-h1 da-gut" style="padding:12px 40px 0 40px; font-family:{FONT}; font-size:38px; line-height:44px; font-weight:800; color:{FOREST};">{head}</td>
+  <td align="center" class="da-h1 da-gut" style="padding:34px 40px 0 40px; font-family:{FONT}; font-size:38px; line-height:44px; font-weight:800; color:{FOREST};">{head}</td>
 </tr>"""
 
 

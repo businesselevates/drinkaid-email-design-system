@@ -72,7 +72,7 @@ EMAILS = {}
 EMAILS["T01-welcome"] = lambda: A.welcome(
     "Better mornings start here",
     "A proper thank you, from a small team in Singapore.",
-    "BETTER MORNINGS", "Better mornings", "start here.",
+    "Better mornings", "start here.",
     [HI,
      "Thank you for choosing DrinkAid.",
      "As we are a small business, your support means the world to us. Somebody sees it. "
@@ -95,7 +95,7 @@ EMAILS["T01-welcome"] = lambda: A.welcome(
 EMAILS["T02-umbrella"] = lambda: A.education_table(
     "What does DrinkAid have to do with an umbrella?",
     "Before your first drink. Here's exactly how to take DrinkAid.",
-    "THE TIMING", "Open it before", "the rain.",
+    "Open it before", "the rain.",
     HI + "<br/><br/>If you're taking DrinkAid, take it before you start drinking."
     "<br/><br/>The best time is 15&ndash;30 minutes before your first drink."
     "<br/><br/>Taking it before you drink means the ingredients are already in your system "
@@ -123,7 +123,7 @@ EMAILS["T02-umbrella"] = lambda: A.education_table(
 EMAILS["T03-four-pathways"] = lambda: A.explainer(
     "Curious why DrinkAid works when the last product you've tried didn't?",
     "Most products focus on one part of drinking. DrinkAid takes a broader approach.",
-    "THE FORMULA", "One formula,", "four pathways.",
+    "One formula,", "four pathways.",
     HI + "<br/><br/>Most hangover products focus on one thing."
     "<br/><br/>Usually, that's DHM, an ingredient that's been widely studied for alcohol "
     "metabolism.<br/><br/>DHM is part of DrinkAid too. But we didn't think one ingredient "
@@ -152,7 +152,7 @@ EMAILS["T03-four-pathways"] = lambda: A.explainer(
 EMAILS["T04-clinically-tested"] = lambda: A.explainer(
     'What "clinically tested" actually means',
     "We tested the finished formula, not just the ingredients.",
-    "THE EVIDENCE", "Tested as sold,", "not as ingredients.",
+    "Tested as sold,", "not as ingredients.",
     HI + '<br/><br/>You\'ve probably seen supplements described as <b>&ldquo;science-backed&rdquo;</b> '
     'or <b>&ldquo;clinically tested.&rdquo;</b><br/><br/>Sometimes, that means one or two '
     "ingredients in the formula have been studied.<br/><br/>That's useful. But it doesn't tell "
@@ -206,7 +206,7 @@ EMAILS["T05-isaac-reply"] = lambda: A.founder_letter(
 EMAILS["T06-review"] = lambda: A.review_request(
     "Are you still getting hungover?",
     "Genuinely asking. Plus a small favour.",
-    "A SMALL FAVOUR", "Are you still", "getting hungover?",
+    "Are you still", "getting hungover?",
     [HI,
      "Genuine question: <b>are you still getting hungover?</b> Or have you stopped losing half "
      "the next day to a night out?",
@@ -225,7 +225,7 @@ EMAILS["T06-review"] = lambda: A.review_request(
 EMAILS["T07-nights-we-built-for"] = lambda: A.nudge(
     "The nights we built DrinkAid for",
     "Nothing to sell today",
-    "NO OFFER TODAY", "The nights we", "built this for.",
+    "The nights we", "built this for.",
     [HI,
      "It started as a joke in a group chat, but it's become a pretty good reminder of who we're "
      "building DrinkAid for.",
@@ -250,7 +250,7 @@ EMAILS["T07-nights-we-built-for"] = lambda: A.nudge(
 EMAILS["T08-A5-first-nudge"] = lambda: A.nudge(
     "What has DrinkAid actually changed?",
     "Three weeks in. How has your experience been?",
-    "THREE WEEKS IN", "What has DrinkAid", "actually changed?",
+    "What has DrinkAid", "actually changed?",
     [HI,
      "Three weeks in.",
      "Genuine question: what has being hangover-free actually changed for you?",
@@ -269,7 +269,7 @@ EMAILS["T08-A5-first-nudge"] = lambda: A.nudge(
 EMAILS["T09-A6-primary-offer"] = lambda: A.offer_compare(
     "Running low on DrinkAid?",
     "If it worked for you, there's a better way to stock up.",
-    "TIME TO RESTOCK", "Running low", "on DrinkAid?",
+    "Running low", "on DrinkAid?",
     HI + "<br/><br/>When you bought your first pack, you probably weren't completely sure it "
     "would work.<br/><br/>Fair enough. There's a lot of marketing in the hangover category, and "
     "it's hard to know what actually makes a difference. Hopefully, DrinkAid surprised you."
@@ -294,7 +294,7 @@ EMAILS["T09-A6-primary-offer"] = lambda: A.offer_compare(
 EMAILS["T10-A8-showing-up"] = lambda: A.nudge(
     "Who are you showing up for today?",
     "The reason any of this exists.",
-    "SHOW UP ANYWAY", "Who are you showing", "up for today?",
+    "Who are you showing", "up for today?",
     [HI,
      "Beyond supplements where you can actually feel the difference, here's what we're actually selling.",
      "Not the absence of a hangover, calm focus, or good sleep. <b>The ability to show up anyway.</b>",
@@ -315,7 +315,7 @@ EMAILS["T10-A8-showing-up"] = lambda: A.nudge(
 EMAILS["T11-A9-remember"] = lambda: A.nudge(
     "Remember when you first got hungover?",
     "The part you don't feel is worth thinking about too.",
-    "THE PART YOU DON'T FEEL", "Remember when you", "used to get hungover?",
+    "Remember when you", "used to get hungover?",
     [HI,
      "Remember your last hangover?",
      "The nausea. The headache that starts in the middle of the night. Waking up already knowing "
@@ -335,7 +335,7 @@ EMAILS["T11-A9-remember"] = lambda: A.nudge(
 EMAILS["T12-A10-exit"] = lambda: A.nudge(
     "Last one from us for a while",
     "Adults can make their own decisions",
-    "LAST ONE FOR A WHILE", "Adults can make", "their own decisions.",
+    "Adults can make", "their own decisions.",
     [HI,
      "If you've stopped drinking altogether, we're genuinely happy for you. That's obviously the "
      "healthiest option, and we're not going to pretend otherwise.",
@@ -355,7 +355,7 @@ EMAILS["T12-A10-exit"] = lambda: A.nudge(
 EMAILS["T13-B8-first-nudge"] = lambda: A.nudge(
     "How's the drawer looking?",
     "No pressure if not.",
-    "TWO AND A HALF MONTHS IN", "A box of six goes", "quicker than it reads.",
+    "A box of six goes", "quicker than it reads.",
     [HI,
      "Coming up on two and a half months, so this is worth a check.",
      "Six sachets sounds like a lot until you count how a normal month actually goes. Two client "
@@ -372,7 +372,7 @@ EMAILS["T13-B8-first-nudge"] = lambda: A.nudge(
 EMAILS["T14-B9-faq"] = lambda: A.explainer(
     "Straight answers, including the awkward ones",
     "Six questions, no marketing.",
-    "STRAIGHT ANSWERS", "Six questions,", "no marketing.",
+    "Six questions,", "no marketing.",
     HI + "<br/><br/>After 6 years and 40,000+ customers, we keep getting the same questions."
     "<br/><br/>So instead of sending you to the FAQ page, we thought we'd bring the answers to you.",
     [("&ldquo;Will DrinkAid stop my flush completely?&rdquo;",
@@ -407,7 +407,7 @@ EMAILS["T14-B9-faq"] = lambda: A.explainer(
 EMAILS["T15-B10-primary-offer"] = lambda: A.offer_compare(
     "It was never only for the big nights",
     "The maths nobody does before they buy",
-    "THE MATHS", "It runs out faster", "than you'd think.",
+    "It runs out faster", "than you'd think.",
     HI + "<br/><br/>Most people buy DrinkAid for the big nights.<br/><br/>The D&amp;D. The client "
     "dinner. The wedding. The Friday that was supposed to be one drink.<br/><br/>Then something "
     "usually changes. You start taking it for the smaller nights too.<br/><br/>Dinner with "
@@ -430,7 +430,7 @@ EMAILS["T15-B10-primary-offer"] = lambda: A.offer_compare(
 EMAILS["T16-B11-exit"] = lambda: A.nudge(
     "Go big once instead of reordering four times",
     "Last one from us for a while.",
-    "LAST ONE FOR A WHILE", "Go big once instead of", "reordering four times.",
+    "Go big once instead of", "reordering four times.",
     [HI,
      "As the calendar fills up, so do the nights.",
      "More weddings. More company dinners. CNY. Year-end parties. And the occasional "
@@ -455,7 +455,7 @@ EMAILS["T16-B11-exit"] = lambda: A.nudge(
 EMAILS["T17-C5-qualifier"] = lambda: A.offer_compare(
     "Quick question, and it changes what we send you",
     "Two very different situations, and we can't tell which is yours.",
-    "ONE QUESTION", "That was a big", "first order.",
+    "That was a big", "first order.",
     HI + "<br/><br/>Most first orders here are a box or two. Somebody testing whether a hangover "
     "product can possibly be real.<br/><br/>Yours was not that.<br/><br/>So before we keep sending "
     "you things, one question, because the honest answer changes what is actually useful to you."
@@ -502,7 +502,7 @@ EMAILS["T18-C9-what-next"] = lambda: A.founder_letter(
 EMAILS["T19-C10-advocacy"] = lambda: A.nudge(
     "How most people find DrinkAid",
     "Usually, it's just one person telling another",
-    "A SMALL FAVOUR", "How most people", "find DrinkAid.",
+    "How most people", "find DrinkAid.",
     [HI,
      "One small favour to ask from you.",
      "Most of our customers found DrinkAid because someone they knew recommended it.",
@@ -520,7 +520,7 @@ EMAILS["T19-C10-advocacy"] = lambda: A.nudge(
 EMAILS["T20-C11-range"] = lambda: A.range_crosssell(
     "What the sachet doesn't do",
     "Yes, this is a range email. It's also true.",
-    "DIFFERENT JOBS", "What the sachet", "doesn't do.",
+    "What the sachet", "doesn't do.",
     HI + "<br/><br/>DrinkAid does what it's designed to do: support your body while it processes "
     "alcohol and help you feel better the next day.<br/><br/>But it doesn't fix everything.",
     [{"image": IMG_SNUU, "eyebrow": "SLEEP BALM", "name": "Snuu",
@@ -545,7 +545,7 @@ EMAILS["T20-C11-range"] = lambda: A.range_crosssell(
 EMAILS["T21-C12-first-nudge"] = lambda: A.nudge(
     "Five months in. How's the supply?",
     "First time we've mentioned it, and we'll be quick.",
-    "FIVE MONTHS IN", "Even a big box", "ends.",
+    "Even a big box", "ends.",
     [HI,
      "We have deliberately not mentioned restocking until now, because you bought enough that it "
      "would have been a silly thing to ask.",
@@ -560,7 +560,7 @@ EMAILS["T21-C12-first-nudge"] = lambda: A.nudge(
 EMAILS["T22-C13-primary-offer"] = lambda: A.nudge(
     "Same again?",
     "No pitch. Just the easy version.",
-    "WHENEVER YOU'RE READY", "Same", "again?",
+    "Same", "again?",
     [HI,
      "Coming up on six months, which is usually about when the drawer starts looking thin.",
      "One thing worth saying: you don't need to buy more than you actually need.",
