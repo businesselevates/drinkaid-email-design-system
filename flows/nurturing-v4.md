@@ -333,7 +333,8 @@ two possible situations. Archetype 6's two-card layout is being reused for it
 with the CTAs relabelled as the two answers, rather than commissioning a ninth.
 
 The comp's component library maps 1:1 onto `components/`: `LogoPill` → 02,
-`HeaderBar` → 03, `EyebrowHeadline` → 07, `MintPanel` → 14, `CtaPrimary` → 09,
+`HeaderBar` → 03, `EyebrowHeadline` → 07 (the eyebrow half was later dropped at
+the client's request; `blocks.headline` keeps only the h1), `MintPanel` → 14, `CtaPrimary` → 09,
 `CtaOutline` → 11, `ReviewCard` → 17, `CategoryCard` → 16, `SupportLine` → 22,
 `Footer` → 23. Four blocks in the comp had no repo equivalent and were added:
 `24-spec-table`, `25-numbered-explainer`, `26-letter-body`, `27-offer-compare-2up`.
@@ -386,6 +387,60 @@ Klaviyo serves, and the byte count matches what was uploaded, so it was not
 mangled (see the social-icon note above). It is heavy for a hero on mobile data
 though; if the client wants it lighter, re-export and re-upload rather than
 scaling it down in the `width` attribute.
+
+### The uppercase eyebrow was dropped (26 Aug)
+
+The comp put a small letter-spaced eyebrow above each h1 — "TIME TO RESTOCK",
+"THE TIMING", "A SMALL FAVOUR" and so on. The client asked for it gone.
+
+`blocks.eyebrow_headline` became `blocks.headline`, and the h1 took over the
+eyebrow's 34px top padding, so the spacing under the logo pill is unchanged. The
+`eyebrow` argument is gone from all seven archetypes that took one and from all
+20 specs that passed one. The two founder letters (T05, T18) never had one, which
+is why only 20 of the 22 templates changed.
+
+Untouched, because they are a different element: the uppercase labels inside the
+mint panels (THE DOSE, THE SIMPLE OPTION), the discount panels (USE CODE), the
+offer cards (OPTION ONE / OPTION TWO, ANSWER ONE / ANSWER TWO) and the product
+cards in the range email (SLEEP BALM, CHEWABLE, CAFFEINE-FREE FOCUS).
+
+**Pushed to Klaviyo on 26 August**: 20 library templates re-uploaded and 28 flow
+messages re-attached, so every flow copy id below supersedes anything recorded
+earlier — including `Sr7TeA` for T01, three paragraphs up.
+
+| Slot | Action | Message | New copy |
+|---|---|---|---|
+| Day 0 (T01) | `115379174` | `T4s9fm` | `TnFpmk` |
+| A2 (T02) | `115379228` | `TBrbyW` | `UYr24S` |
+| A3 (T03) | `115379230` | `SYq8Wj` | `XYRYE6` |
+| A5 (T08) | `115379234` | `VWeRkE` | `SZiRKs` |
+| A6 (T09) | `115379236` | `X7DGew` | `TaVnt9` |
+| A7 (T06) | `115379238` | `STLSAV` | `TdxCE2` |
+| A8 (T10) | `115379241` | `Yh4x8n` | `TXNbNU` |
+| A9 (T11) | `115379243` | `XE3uvK` | `RituDC` |
+| A10 (T12) | `115379245` | `X32rT8` | `XYpuBc` |
+| B2 (T02) | `115379275` | `VnriXg` | `VapwMu` |
+| B3 (T03) | `115379283` | `VUP7ev` | `XKGdDJ` |
+| B4 (T04) | `115379285` | `X6dW8m` | `WfLmni` |
+| B6 (T06) | `115379289` | `VQbQT7` | `TArEd2` |
+| B7 (T07) | `115379292` | `QZhYCT` | `TXyVMt` |
+| B8 (T13) | `115379295` | `WnzDak` | `UR4ZuC` |
+| B9 (T14) | `115379297` | `TX8H3e` | `XDDdcb` |
+| B10 (T15) | `115379300` | `WUXrrz` | `RpsJZV` |
+| B11 (T16) | `115379302` | `WhWnNW` | `Wsdn9N` |
+| C2 (T02) | `115379343` | `W4DRP8` | `XsWWpe` |
+| C3 (T03) | `115379347` | `RdKZyU` | `VqDhQz` |
+| C4 (T04) | `115379349` | `WB3E6m` | `WMUTC6` |
+| C5 (T17) | `115379352` | `VkZyR7` | `VhZ3kE` |
+| C7 (T06) | `115379358` | `WwqpJX` | `XViJmr` |
+| C8 (T07) | `115379360` | `SixA7n` | `XXUYyi` |
+| C10 (T19) | `115379366` | `X4Nc2c` | `XyLGPk` |
+| C11 (T20) | `115379368` | `WrM9pz` | `WYmUpA` |
+| C12 (T21) | `115379370` | `VNL6LW` | `T9Cnks` |
+| C13 (T22) | `115379372` | `TpjaDQ` | `XzmWRG` |
+
+Not re-attached, because their templates did not change: A4 (`115379232`), B5
+(`115379287`) and C6 (`115379356`), all T05; and C9 (`115379364`), T18.
 
 ### Folding Day 0 into the three track flows
 
