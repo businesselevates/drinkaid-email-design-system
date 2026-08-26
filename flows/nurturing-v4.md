@@ -365,7 +365,27 @@ line ("reply to this email — a human reads it") still closes it, and the first
 real CTA in the sequence now lands on T02.
 
 Library template `RqKwSt` re-uploaded and re-attached to `Rg2fJS`; the flow copy
-is now **`VZkKkB`** (was `SQshAX`).
+is now **`Sr7TeA`** (was `VZkKkB`, and `SQshAX` before that).
+
+### T01 got a hero image (26 Aug)
+
+The letter opened on an eyebrow and a headline over plain text. It now carries a
+hero between the two, from the client's EDM deck — the same family as the C11
+cards they signed off on. `archetypes.welcome()` takes `hero` and `hero_alt` as
+optional, matching `education_table` and `explainer`.
+
+Chosen over the other candidate in that folder, `2026 May - BOFU - DRINKAID 4x5
+ADS.jpg`, on three grounds: it is a bottom-of-funnel acquisition creative and
+T01 goes to somebody who has just paid; it would put a sales pitch back into the
+one email whose CTA button was deliberately removed; and `4x5` means portrait,
+which at 520px wide is a ~650px wall of image above a letter whose whole point is
+the letter.
+
+The image is `[Pills v4] T01 hero - welcome letter`, 687KB — well within what
+Klaviyo serves, and the byte count matches what was uploaded, so it was not
+mangled (see the social-icon note above). It is heavy for a hero on mobile data
+though; if the client wants it lighter, re-export and re-upload rather than
+scaling it down in the `width` attribute.
 
 ### Folding Day 0 into the three track flows
 
