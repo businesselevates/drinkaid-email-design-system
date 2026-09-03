@@ -1,27 +1,30 @@
 <!-- CART LINE ITEMS · DYNAMIC. Abandoned-cart flows only.
-     Design the shape of ONE row properly - the loop repeats whatever that row is.
-     Klaviyo populates this from the Checkout Started event.
+     Row shape approved in the abandoned-cart design: 72px thumbnail, bold title,
+     muted "variant · Qty n" line, bold price right-aligned, hairline between rows.
+     Klaviyo populates this from the Shopify Checkout Started event
+     (event.extra.line_items). It will not render in a browser preview.
      In a static design comp, delete the {% for %} / {% endfor %} lines and
-     hard-code two example rows. -->
+     hard-code two example rows. Precede with 24-section-label if you want a
+     "Here's what you saved" caption (then set divider to border-top). -->
 <tr>
   <td align="center" class="da-gut" style="padding:30px 48px 0 48px;">
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-
       {% for item in event.extra.line_items %}
       <tr>
-        <td width="96" valign="top" style="padding:0 18px 20px 0;">
-          <img src="{{ item.product.featured_image.full }}" width="96" alt="{{ item.product.title }}" style="display:block; width:96px; height:auto; border:0; border-radius:12px; background-color:#F1F0E7;"/>
+        <td width="72" valign="middle" style="padding:14px 16px 14px 0; border-bottom:1px solid #DCDCD2;">
+          <img src="{{ item.product.images.0.src }}" width="72" height="72" alt="{{ item.product.title }}" style="display:block; width:72px; height:72px; border:0; border-radius:12px; background-color:#F1F0E7;"/>
         </td>
-        <td valign="top" style="padding:0 0 20px 0;">
-          <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:17px; line-height:24px; font-weight:700; color:#08230F;">
+        <td valign="middle" style="padding:14px 12px 14px 0; border-bottom:1px solid #DCDCD2;">
+          <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:16px; line-height:22px; font-weight:700; color:#08230F;">
             <a href="{{ item.product.url }}" target="_blank" style="color:#08230F; text-decoration:none;">{{ item.product.title }}</a>
           </div>
-          <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; color:#5A6B5E; padding-top:4px;">Qty {{ item.quantity }}</div>
-          <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; font-weight:700; color:#08230F; padding-top:2px;">S${{ item.line_price }}</div>
+          <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:20px; color:#5A6B5E; padding-top:3px;">{% if item.product.variant.title and item.product.variant.title != 'Default Title' %}{{ item.product.variant.title }} &middot; {% endif %}Qty {{ item.quantity }}</div>
+        </td>
+        <td align="right" valign="middle" style="padding:14px 0 14px 0; border-bottom:1px solid #DCDCD2; font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:16px; line-height:22px; font-weight:700; color:#08230F; white-space:nowrap;">
+          S${{ item.line_price|floatformat:2 }}
         </td>
       </tr>
       {% endfor %}
-
     </table>
   </td>
 </tr>

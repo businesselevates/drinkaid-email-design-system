@@ -21,8 +21,9 @@ brief.md               The design system: brand, voice, colour, type, rules.
 tokens.json            The same system, machine-readable.
 components/            One file per block. Real email-safe HTML.
   _shell.html          Outer wrapper — doctype, head, media queries, 600px table.
-  01…23-*.html         The blocks, in roughly the order they appear in an email.
-templates/             Worked examples composing the blocks.
+  01…25-*.html         The blocks, in roughly the order they appear in an email.
+templates/             Finished emails composing the blocks.
+  abandoned-cart/      The four cart-recovery sends, live in Klaviyo. See its README.
 ```
 
 ## How to build an email
@@ -89,6 +90,10 @@ The signature move is a headline whose second line turns *italic* — see `07-ey
 For a static design comp, delete the `{% for %}` / `{% endfor %}` lines and hard-code two example rows. Design the shape of *one* row properly — the loop repeats whatever that row is.
 
 `20-cross-sell-3up` ships static. It can be swapped for a Klaviyo catalogue feed at import.
+
+## Mobile
+
+Anything that must stay on one line at 600px has to be able to wrap or shrink at 375px. Two blocks learned this the hard way: the footer social row is inline text and images rather than table cells so it wraps, and the offer code carries `class="da-code"` so the shell's media query shrinks it. A six-cell table row will not shrink below its content, and `display:block` on a `<td>` does not stack it in Chrome. Test at 375px before shipping a new block.
 
 ---
 

@@ -2,7 +2,7 @@
 
 `README.md` explains *how* the repo works. This file explains *why it looks the way it does*, and what is still unresolved. Read it before changing anything structural or presenting any of this to the client.
 
-Last updated: 17 August 2026.
+Last updated: 3 September 2026.
 
 ---
 
@@ -93,6 +93,22 @@ Two things to hold on to:
 
 ---
 
+## Abandoned cart — built 3 September
+
+The client approved the four-send layout (artifact `8dd4062f…`). The four emails are in
+`templates/abandoned-cart/`, in Klaviyo as `[Cart v2] R01–R04`, and wired into flow
+`WVmBZQ`, which is still **draft**. Copy is the approved copy doc, verbatim. Full mapping
+and open items in `templates/abandoned-cart/README.md`.
+
+Three blocks were added or changed for it, and they apply to every future email:
+
+- `19-cart-line-items` now has the approved row shape (72px thumbnail, variant · qty, price right).
+- `24-tick-list` and `25-review-stack` are new.
+- `23-footer` social row is the flat four-icon set (Facebook, Instagram, TikTok, LinkedIn) and is
+  built inline so it wraps on mobile. The `[Pills v4]` nurture templates in Klaviyo carry the
+  older six-cell version of this row, which forces the email wider than 375px on phones. **They
+  should be re-exported with the current footer.** Not yet done.
+
 ## Account facts
 
 | | |
@@ -111,7 +127,11 @@ Two things to hold on to:
 2. **Deprecate Klaviyo template `Y4USkr`.**
 3. **Confirm the typeface with the client.** Matters for print and web; barely matters for email, since Klaviyo strips webfonts.
 4. **Get client sign-off on the standardised type scale** — `brief.md` §12 lists everything in this category.
-5. **UGC folder is unusable as-is.** The local `Asset/` folder holds candid customer photos of the Gummies SKU. All are phone screenshots — several still carry the iOS status bar and Instagram story UI, and six are rotated 90°. They need cropping, rotating and uploading before any of them can appear in an email. Do not feed them to a design tool in their current state.
+5. **Abandoned cart, before go-live:** seed test the flow in Gmail and Outlook; confirm the
+   `DRINKAIDEMAIL12` code is 10%; get review attributions from the client. Details in
+   `templates/abandoned-cart/README.md`.
+6. **Re-export the `[Pills v4]` templates with the current footer** (see above).
+7. **UGC folder is unusable as-is.** The local `Asset/` folder holds candid customer photos of the Gummies SKU. All are phone screenshots — several still carry the iOS status bar and Instagram story UI, and six are rotated 90°. They need cropping, rotating and uploading before any of them can appear in an email. Do not feed them to a design tool in their current state.
 
 ---
 
