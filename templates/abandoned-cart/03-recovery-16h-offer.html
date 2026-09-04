@@ -135,12 +135,12 @@
         </td>
         <td valign="middle" style="padding:14px 12px 14px 0; border-top:1px solid #DCDCD2;">
           <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:16px; line-height:22px; font-weight:700; color:#08230F;">
-            <a href="{{ item.product.url }}" target="_blank" style="color:#08230F; text-decoration:none;">{{ item.product.title }}</a>
+            <a href="https://drinkaid.co/products/{{ item.product.handle }}" target="_blank" style="color:#08230F; text-decoration:none;">{{ item.product.title }}</a>
           </div>
           <div style="font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:20px; color:#5A6B5E; padding-top:3px;">{% if item.product.variant.title and item.product.variant.title != 'Default Title' %}{{ item.product.variant.title }} &middot; {% endif %}Qty {{ item.quantity }}</div>
         </td>
         <td align="right" valign="middle" style="padding:14px 0 14px 0; border-top:1px solid #DCDCD2; font-family:'Poppins','Segoe UI',Helvetica,Arial,sans-serif; font-size:16px; line-height:22px; font-weight:700; color:#08230F; white-space:nowrap;">
-          S${{ item.line_price|floatformat:2 }}
+          {% if event.extra.presentment_currency and event.extra.presentment_currency != 'SGD' %}{{ item.line_price_set.presentment_money.amount|default:item.line_price|floatformat:-2 }} {{ event.extra.presentment_currency }}{% else %}S${{ item.line_price_set.shop_money.amount|default:item.line_price|floatformat:2 }}{% endif %}
         </td>
       </tr>
       {% endfor %}

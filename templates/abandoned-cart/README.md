@@ -8,10 +8,10 @@ Flow: https://www.klaviyo.com/flow/WVmBZQ/edit (`[DrinkAid] Cart recovery email 
 
 | # | File | Delay | Subject | Master template | Flow copy |
 |---|---|---|---|---|---|
-| 1 | `01-recovery-30min.html` | 30 min | You left your mornings in the cart | `RnZhBf` | `XKuGwB` |
-| 2 | `02-recovery-10h.html` | +9 h 30 | Still thinking it over? | `T8zETq` | `WTKWDT` |
-| 3 | `03-recovery-16h-offer.html` | +6 h | A little something before your cart expires | `S9BQM4` | `RJm527` |
-| 4 | `04-recovery-3d-proof.html` | +56 h | Still not sure if DrinkAid is for you? | `W6LpiE` | `VGk7Bw` |
+| 1 | `01-recovery-30min.html` | 30 min | You left your mornings in the cart | `RnZhBf` | `YAKvRJ` |
+| 2 | `02-recovery-10h.html` | +9 h 30 | Still thinking it over? | `T8zETq` | `WycBhC` |
+| 3 | `03-recovery-16h-offer.html` | +6 h | A little something before your cart expires | `S9BQM4` | `Vg9vTR` |
+| 4 | `04-recovery-3d-proof.html` | +56 h | Still not sure if DrinkAid is for you? | `W6LpiE` | `WVV8Ur` |
 
 **Master vs flow copy.** Klaviyo clones a template into the flow message the moment it is
 assigned, so each email exists twice. The master (`[Cart v2] R0n · …` in the template
@@ -43,13 +43,19 @@ doc's words, unchanged.
 event:
 
 ```
-{{ item.product.images.0.src }}   thumbnail
-{{ item.product.title }}          linked to {{ item.product.url }}
-{{ item.product.variant.title }}  shown only when set and not "Default Title"
+{{ item.product.images.0.src }}      thumbnail
+{{ item.product.title }}             linked to https://drinkaid.co/products/{{ item.product.handle }}
+{{ item.product.variant.title }}     shown only when set and not "Default Title"
 {{ item.quantity }}
-{{ item.line_price|floatformat:2 }}  prefixed S$
-{{ event.extra.checkout_url }}    every CTA
+{{ item.line_price_set.shop_money.amount }}         price, as S$, when presentment_currency is SGD or unset
+{{ item.line_price_set.presentment_money.amount }}  price + currency code otherwise (VND, MYR...)
+{{ event.extra.checkout_url }}       every CTA
 ```
+
+Two things learned from a real event (4 Sep): Shopify sends `product.url` as **null**, so
+the link is built from `handle`; and `line_price` is in the shopper's *presentment*
+currency (a checkout from Vietnam came through as 1048000 VND), so the price reads
+`line_price_set` and switches format on `presentment_currency`.
 
 Verified with the Klaviyo render API against a two-item sample cart (one with a variant,
 one without). **The Klaviyo web-view / plain preview renders the list empty** because it
