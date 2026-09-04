@@ -8,7 +8,7 @@ Flow: https://www.klaviyo.com/flow/WVmBZQ/edit (`[DrinkAid] Cart recovery email 
 
 | # | File | Delay | Subject | Master template | Flow copy |
 |---|---|---|---|---|---|
-| 1 | `01-recovery-30min.html` | 30 min | You left your mornings in the cart | `RnZhBf` | `X2qd9N` |
+| 1 | `01-recovery-30min.html` | 30 min | You left your mornings in the cart | `RnZhBf` | `XKuGwB` |
 | 2 | `02-recovery-10h.html` | +9 h 30 | Still thinking it over? | `T8zETq` | `WTKWDT` |
 | 3 | `03-recovery-16h-offer.html` | +6 h | A little something before your cart expires | `S9BQM4` | `RJm527` |
 | 4 | `04-recovery-3d-proof.html` | +56 h | Still not sure if DrinkAid is for you? | `W6LpiE` | `VGk7Bw` |
