@@ -27,7 +27,7 @@ Every email: `02-header-logo-pill` → blocks → `22-support-line` (not on #4) 
 
 | # | Blocks between header and footer |
 |---|---|
-| 1 | `06-hero-inset` (toast/recovery photo) · `07-eyebrow-headline` · `08-body-copy` · `19-cart-line-items` · `09-cta-primary` · sign-off |
+| 1 | `07-eyebrow-headline` · `08-body-copy` · `19-cart-line-items` · `09-cta-primary` · sign-off |
 | 2 | `07` · `08` · `24-tick-list` (4) · `08` · `25-review-stack` (3) · `08` guarantee · `09` · section label + `19` · sign-off |
 | 3 | `07` · `08` · `18-offer-code-panel` · expiry caption · `09` · `08` · section label + `19` · sign-off |
 | 4 | `07` · `08` · `08` · `24-tick-list` (5) · `08` · `17-review-card` · `08` guarantee · `09` · section label + `19` · brand sign-off line |
@@ -52,7 +52,9 @@ event:
 ```
 
 Verified with the Klaviyo render API against a two-item sample cart (one with a variant,
-one without). Still needs a **seed test through the flow** in Gmail and Outlook before the
+one without). **The Klaviyo web-view / plain preview renders the list empty** because it
+has no Checkout Started event behind it; use *Preview with event data* in the flow editor,
+or a seed test, to see rows. Still needs a **seed test through the flow** in Gmail and Outlook before the
 flow goes live; a browser preview is not an inbox.
 
 ## Mobile
@@ -74,7 +76,5 @@ shared blocks, so they apply to every future email:
 - **Discount code.** `DRINKAIDEMAIL12` is carried over from the previous version of
   email 3. The copy doc says 10%; the code's actual value could not be checked (Shopify
   connector was not authorised in this session). Confirm before the flow goes live.
-- **Hero photo on email 1** is the toast/recovery image the previous version used
-  (`25da6c86…`). Swap if the client wants a different opener.
 - **Email 1 copy still says "gummies"** in two places, as the copy doc does. If the flow
   serves the pills SKU too, that line needs a variant or a conditional.
